@@ -1,7 +1,15 @@
 {
-  "name": "timesplitter-dev",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@moonhighway/timesplitter-dev",
+  "version": "0.0.0",
+  "private": false,
+  "description": "🛠 Tools to help presenters build engaging instructor led training for the timesplitter",
+  "keywords": [
+    "Instructor led, presenter, classroom, training, tools, timers, notes"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MoonHighway/timesplitter-dev.git "
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -11,11 +19,14 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
+  "bin": {
+    "timesplitter-dev": "server/index.js"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "bump": "node bump"
   },
   "eslintConfig": {
     "extends": [
