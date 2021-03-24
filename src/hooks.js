@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { toJSON, toText, throwIt } from "./lib";
+import { useState, useMemo, useEffect } from "react";
+import { toJSON, toText, throwIt, toTree } from "./lib";
 
 export const useContent = () => {
   const [content, setContent] = useState();
@@ -25,3 +25,20 @@ export const useContentFile = (path) => {
   }, [url]);
   return content;
 };
+
+export function useTreeContent() {
+  const content = useContent();
+  const { title, children } = useMemo(() => {
+    if (!content) return { title: "", children: [] };
+    return toTree(content);
+  }, [content]);
+
+  const [data, setTree] = useState(children);
+
+  useEffect(() => {
+    if (!children.length) return;
+    setTree(children);
+  }, [children]);
+
+  return { title, children, data, setTree };
+}
