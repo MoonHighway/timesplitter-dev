@@ -1,7 +1,9 @@
 export const toJSON = (res) => res.json();
+export const toText = (res) => res.text();
 
-export const returnLocalSampleContent = (done = (f) => f) => async () => {
-  console.log("Loading Local Sample Content for Development");
-  const content = await import("./_content-sample/timesplitter.json");
-  done(content);
+export const throwIt = (msg) => (error) => {
+  if (msg) {
+    console.error(msg);
+  }
+  throw error;
 };
