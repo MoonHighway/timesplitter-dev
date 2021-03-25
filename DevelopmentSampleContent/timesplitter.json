@@ -1,5 +1,5 @@
 {
-  "title": "Timesplitter Development Mode Content",
+  "title": "Timesplitter Development Mode",
   "agenda": [
     {
       "title": "Chapter One",
@@ -27,6 +27,7 @@
       "type": "section",
       "difficulty": "advanced",
       "required": true,
+      "length": 10,
       "agenda": [
         { "title": "sample one", "difficulty": "intermediate" },
         { "title": "sample two", "difficulty": "advanced" },
