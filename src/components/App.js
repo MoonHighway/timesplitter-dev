@@ -1,19 +1,21 @@
-import Page from "./Page";
-import Menu from "./Menu";
-import { TimeDisplay, totalTime } from "../lib";
 import { useTreeContent } from "../hooks";
+import AddForm from "./AddForm";
+import CourseTitle from "./CourseTitle";
+import Menu from "./Menu";
+import TopicMeta from "./TopicMeta";
+import TopicMarkdown from "./TopicMarkdown";
 
 export default function App() {
   const { title, children, data, setTree } = useTreeContent();
   if (data) {
     return (
-      <Page>
-        <h1>{title}</h1>
-        <p>
-          <TimeDisplay size={25} time={totalTime({ children })} />
-        </p>
+      <>
+        <AddForm />
+        <CourseTitle title={title} topics={children} />
         <Menu data={data} onChange={setTree} />
-      </Page>
+        <TopicMeta />
+        <TopicMarkdown />
+      </>
     );
   }
 
