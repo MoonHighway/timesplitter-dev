@@ -27,5 +27,6 @@ export default function Menu({ data, onChange = (f) => f }) {
 }
 
 const Container = styled.div`
+  min-width: 450px;
   grid-area: 2 / 1 / 8 / 2;
 `;

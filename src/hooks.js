@@ -42,3 +42,15 @@ export function useTreeContent() {
 
   return { title, children, data, setTree };
 }
+
+export function useInput(initVal) {
+  const [value, onChange] = useState(initVal);
+  useEffect(() => {
+    if (!initVal) return;
+    onChange(initVal);
+  }, [initVal]);
+  return {
+    value,
+    onChange,
+  };
+}

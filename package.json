@@ -11,7 +11,8 @@
     "url": "https://github.com/MoonHighway/timesplitter-dev.git "
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "react-select": "^4.3.0"
   },
   "bin": {
     "timesplitter-dev": "server/index.js"

@@ -10,7 +10,11 @@ export default function App() {
   if (data) {
     return (
       <>
-        <AddForm />
+        <AddForm
+          onNewTopic={(title, difficulty) =>
+            alert(`TODO: Add Net Topic (${title},${difficulty})`)
+          }
+        />
         <CourseTitle title={title} topics={children} />
         <Menu data={data} onChange={setTree} />
         <TopicMeta />
