@@ -4,14 +4,20 @@ import { DropTarget } from "./DragDrop";
 import styled from "styled-components";
 import "react-sortable-tree/style.css";
 
-export default function Menu({ data, onChange = (f) => f }) {
+export default function Menu({ data, selectedTitle, onChange = (f) => f, onSelect= f => f }) {
+  
   return (
     <Container>
       <SortableTree
         isVirtualized={false}
         treeData={data}
         onChange={onChange}
+        generateNodeProps={({ node }) => ({
+          selected: selectedTitle === node.title,
+          onSelect: (title) => onSelect(title)
+        })}
         nodeContentRenderer={(node) => {
+          console.log(node.selected, " selected")
           if (node.isDragging) {
             return (
               <DropTarget>
@@ -19,7 +25,7 @@ export default function Menu({ data, onChange = (f) => f }) {
               </DropTarget>
             );
           }
-          return <TreeNode node={node} />;
+          return <TreeNode node={node} onSelect={title => node.onSelect(title)} />;
         }}
       />
     </Container>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTreeContent } from "../hooks";
 import AddForm from "./AddForm";
 import CourseTitle from "./CourseTitle";
@@ -7,6 +8,8 @@ import TopicMarkdown from "./TopicMarkdown";
 
 export default function App() {
   const { title, children, data, setTree } = useTreeContent();
+  const [selectedTitle, setSelectedTitle] = useState();
+
   if (data) {
     return (
       <>
@@ -16,7 +19,7 @@ export default function App() {
           }
         />
         <CourseTitle title={title} topics={children} />
-        <Menu data={data} onChange={setTree} />
+        <Menu data={data} onChange={setTree} selectedTitle={selectedTitle} onSelect={setSelectedTitle} />
         <TopicMeta />
         <TopicMarkdown />
       </>
