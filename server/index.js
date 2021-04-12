@@ -27,7 +27,7 @@ app.get("/*", function (req, res) {
 app.listen(4200, () => {
   console.log(`
 
-  ⏰ Timesplitter
+  🛠  Timesplitter Dev
   http://localhost:4200
 
   `);
