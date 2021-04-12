@@ -9,7 +9,6 @@ import TopicMarkdown from "./TopicMarkdown";
 export default function App() {
   const { title, children, data, setTree } = useTreeContent();
   const [selectedTitle, setSelectedTitle] = useState();
-
   if (data) {
     return (
       <>
@@ -25,6 +24,5 @@ export default function App() {
       </>
     );
   }
-
   return null;
 }

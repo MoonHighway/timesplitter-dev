@@ -4,12 +4,16 @@ export function Draggable({ connectDragSource, children }) {
   return connectDragSource(<div>{children}</div>);
 }
 
-export function Expandable({ node }) {
+export function Expandable({ node, onExpand = f=>f }) {
   const { expanded = false, children = [] } = node.node;
+
   return children.length > 0 ? (
     <Expand
       expanded={expanded}
-      onClick={() => node.toggleChildrenVisibility(node)}
+      onClick={() => {
+        onExpand(expanded);
+        node.toggleChildrenVisibility(node)
+      }}
     />
   ) : null;
 }

@@ -6,8 +6,14 @@ import styled from "styled-components";
 export default function TreeNode({ node, onSelect=f=>f }) {
   return (
     <Container>
-      <Expandable node={node} />
-      <Node selected={node.selected} type={node.node.type} required={node.node.required} onClick={() => onSelect(node.node.title)} >
+      <Expandable node={node} onExpand={() => onSelect(node.node.title)} />
+      <Node selected={node.selected} 
+        type={node.node.type} 
+        required={node.node.required} 
+        onClick={() => {
+          if (node.selected) onSelect();
+          else onSelect(node.node.title);
+        }}>
         <Draggable connectDragSource={node.connectDragSource}>
           <Handle type={node.node.type} required={node.node.required}>
             <TopicIcon type={node.node.type} />

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import "react-sortable-tree/style.css";
 
 export default function Menu({ data, selectedTitle, onChange = (f) => f, onSelect= f => f }) {
-  
   return (
     <Container>
       <SortableTree
@@ -17,7 +16,6 @@ export default function Menu({ data, selectedTitle, onChange = (f) => f, onSelec
           onSelect: (title) => onSelect(title)
         })}
         nodeContentRenderer={(node) => {
-          console.log(node.selected, " selected")
           if (node.isDragging) {
             return (
               <DropTarget>
