@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import DDLControlMenu from "./DDLControlMenu";
 import styled from "styled-components";
-import { DifficultyDropDown } from "../../lib";
+import { DifficultyDropDown, topicTitleIsUnique } from "../../lib";
 import { fonts } from "../../theme";
 
 export default function AddForm({
   title = "",
   difficulty = "beginner",
+  agenda=[],
   onNewTopic = (f) => f,
 }) {
   const [_title, setTitle] = useState(title);
@@ -20,6 +21,13 @@ export default function AddForm({
     if (difficulty !== _difficulty) setDifficulty(difficulty);
   }, [difficulty]);
 
+  const sendTopic = () => {
+    if (!topicTitleIsUnique(_title, { children: agenda })) {
+      return alert(`The title "${_title}" is not unique for this course`);
+    }
+    onNewTopic(_title, _difficulty)
+  }
+
   return (
     <Container>
       <BarOne>
@@ -32,8 +40,7 @@ export default function AddForm({
 
         <Button
           disabled={_title.trim() === ""}
-          onClick={() => onNewTopic(_title, _difficulty)}
-        >
+          onClick={sendTopic}>
           Add
         </Button>
       </BarOne>

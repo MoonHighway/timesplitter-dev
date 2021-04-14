@@ -10,12 +10,12 @@ describe("toJSON()", () => {
 
 describe("topicTitleIsUnique(title)", () => {
 
-  const agenda = [
+  const children = [
     { title: "Chapter One", 
-      agenda: [
+      children: [
         { 
           title: "sub section", 
-          agenda: [
+          children: [
             { title: "deep TOPIC"}
           ]
         }
@@ -25,17 +25,17 @@ describe("topicTitleIsUnique(title)", () => {
   ]
 
   it("success - topic is unique", () => {
-    const result = topicTitleIsUnique("Not There", {agenda});
+    const result = topicTitleIsUnique("Not There", {children});
     expect(result).toEqual(true);
   });
 
   it("fail - level one match", () => {
-    const result = topicTitleIsUnique("Chapter Two", {agenda});
+    const result = topicTitleIsUnique("Chapter Two", {children});
     expect(result).toEqual(false);
   });
 
   it("fail - deep match", () => {
-    const result = topicTitleIsUnique("deep Topic", {agenda});
+    const result = topicTitleIsUnique("deep Topic", {children});
     expect(result).toEqual(false);
   });
 

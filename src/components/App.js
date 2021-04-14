@@ -13,6 +13,7 @@ export default function App() {
     return (
       <>
         <AddForm
+          agenda={children}
           onNewTopic={(title, difficulty) =>
             alert(`TODO: Add Net Topic (${title},${difficulty})`)
           }
