@@ -32,3 +32,8 @@ export const totalTime = (topic = {}) => {
   return 0;
 };
 
+const topicTitlesOnly = topic => topic.title
+const nestedTitlesOnly = (subTitles, topic) => [ ...subTitles, ...titlesOnly(topic)];
+const titlesOnly = ({ agenda=[] }) => [...agenda.map(topicTitlesOnly), ...agenda.reduce(nestedTitlesOnly, [])];
+const matchCase = rightString => leftString => leftString.toLowerCase() === rightString.toLowerCase()
+export const topicTitleIsUnique = (topicName, topic) => !titlesOnly(topic).some(matchCase(topicName));

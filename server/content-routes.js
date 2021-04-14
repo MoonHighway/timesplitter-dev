@@ -4,8 +4,13 @@ const fs = require("fs");
 const path = require("path");
 
 const readFile = promisify(fs.readFile);
-
 const router = express.Router();
+
+const topicTitlesOnly = topic => topic.title
+const nestedTitlesOnly = (subTitles, topic) => [ ...subTitles, ...titlesOnly(topic)];
+const titlesOnly = ({ agenda=[] }) => [...agenda.map(topicTitlesOnly), ...agenda.reduce(nestedTitlesOnly, [])];
+const matchCase = rightString => leftString => leftString.toLowerCase() === rightString.toLowerCase()
+const topicTitleIsUnique = (topicName, topic) => !titlesOnly(topic).some(matchCase(topicName));
 
 module.exports = function (rootFolder) {
   router.get("/", async (req, res) => {
