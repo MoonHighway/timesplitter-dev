@@ -11,7 +11,7 @@ export const useContent = () => {
       .then(setContent)
       .catch(throwIt(`An error occurred while loading ${url}`));
   }, []);
-  return content;
+  return [content, setContent];
 };
 
 export const useContentFile = (path) => {
@@ -27,7 +27,7 @@ export const useContentFile = (path) => {
 };
 
 export function useTreeContent() {
-  const content = useContent();
+  const [content, setContent] = useContent();
   const { title, children } = useMemo(() => {
     if (!content) return { title: "", children: [] };
     return toTree(content);
@@ -40,7 +40,27 @@ export function useTreeContent() {
     setTree(children);
   }, [children]);
 
-  return { title, children, data, setTree };
+  const addTopic = (topic, difficulty) => {
+    console.log(`sending ${topic}, ${difficulty}`)
+    fetch(`/content`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ topic, difficulty }),
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(`Something went wrong while adding ${topic} to timesplitter.`);
+        }
+        setContent(content);
+      })
+      .then(setContent)
+      .catch(console.error);
+  }
+
+  return { title, children, data, setTree, addTopic };
 }
 
 export function useInput(initVal) {

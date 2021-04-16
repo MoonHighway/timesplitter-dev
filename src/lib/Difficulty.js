@@ -61,7 +61,7 @@ function useDifficultyOptions(value) {
   return { 
     selected, 
     options, 
-    onChange: (value) =>
+    setDifficulty: (value) =>
       setSelected(options.find(item => item.value === value)) 
   }
 
@@ -70,18 +70,18 @@ function useDifficultyOptions(value) {
 export function DifficultyDropDown({
   selectedValue = "beginner",
   size = "sm",
+  onChange=f=>f
 }) {
-  const { selected, options, onChange } = useDifficultyOptions(selectedValue);
+  const { selected, options, setDifficulty } = useDifficultyOptions(selectedValue);
 
-  const styles = {
-    container: () => ({
-      width: 100
-    })
-  }
+
 
   return (
     <Container className="difficulty-drop-down">
-      <Select value={selected} options={options} onChange={onChange} />
+      <Select value={selected} options={options} onChange={({ value }) => {
+        onChange(value);
+        setDifficulty(value);
+      }} />
     </Container>
   );
 }

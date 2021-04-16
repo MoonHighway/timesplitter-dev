@@ -25,7 +25,9 @@ export default function AddForm({
     if (!topicTitleIsUnique(_title, { children: agenda })) {
       return alert(`The title "${_title}" is not unique for this course`);
     }
-    onNewTopic(_title, _difficulty)
+    onNewTopic(_title, _difficulty);
+    setTitle("");
+    setDifficulty("beginner");
   }
 
   return (
@@ -36,7 +38,7 @@ export default function AddForm({
             onChange={(e) => setTitle(e.target.value)}
             placeholder="new topic"
           ></input>
-          <DifficultyDropDown selectedValue={difficulty} size="sm" />
+          <DifficultyDropDown selectedValue={difficulty} size="sm" onChange={setDifficulty} />
 
         <Button
           disabled={_title.trim() === ""}
