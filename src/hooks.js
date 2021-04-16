@@ -40,14 +40,13 @@ export function useTreeContent() {
     setTree(children);
   }, [children]);
 
-  const addTopic = (topic, difficulty) => {
-    console.log(`sending ${topic}, ${difficulty}`)
+  const addTopic = (topic, difficulty, parent) => {
     fetch(`/content`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ topic, difficulty }),
+      body: JSON.stringify({ topic, difficulty, parent }),
     })
       .then(toJSON)
       .then((content) => {
