@@ -32,5 +32,5 @@ export default function Menu({ data, selectedTitle, onChange = (f) => f, onSelec
 
 const Container = styled.div`
   min-width: 450px;
-  grid-area: 2 / 1 / 8 / 2;
+  grid-area: 2 / 1 / 11 / 2;
 `;

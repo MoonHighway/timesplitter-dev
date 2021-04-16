@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
   #root {  
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(7, 1fr);
+    grid-template-rows: repeat(10, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
   }
