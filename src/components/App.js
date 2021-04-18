@@ -14,13 +14,10 @@ export default function App() {
   const onAddTopic = (title, difficulty) => addTopic(title, difficulty, selectedTitle);
 
   if (data) {
-    if (selectedTitle) {
-      console.log(`selecting ${selectedTitle}`)
-      data = data.map(setSelectedBranch(selectedTitle))
-    }
+    if (selectedTitle) data = data.map(setSelectedBranch(selectedTitle))
     return (
       <>
-        <AddForm agenda={children} onNewTopic={onAddTopic} />
+        <AddForm agenda={data.children} onNewTopic={onAddTopic} />
         <CourseTitle title={title} topics={children} />
         <Menu data={data} onChange={setTree} selectedTitle={selectedTitle} onSelect={setSelectedTitle} />
         <TopicMeta />
