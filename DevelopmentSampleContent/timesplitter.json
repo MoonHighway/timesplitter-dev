@@ -42,35 +42,6 @@
           "difficulty": "expert"
         }
       ]
-    },
-    {
-      "title": "Chapter Four",
-      "difficulty": "intermediate",
-      "type": "section",
-      "required": true,
-      "agenda": [
-        {
-          "title": "Topic One",
-          "difficulty": "beginner",
-          "type": "sample",
-          "required": true,
-          "agenda": []
-        },
-        {
-          "title": "Topic Two",
-          "difficulty": "advanced",
-          "type": "sample",
-          "required": true,
-          "agenda": []
-        },
-        {
-          "title": "topic three",
-          "difficulty": "intermediate",
-          "type": "sample",
-          "required": true,
-          "agenda": []
-        }
-      ]
     }
   ]
 }
