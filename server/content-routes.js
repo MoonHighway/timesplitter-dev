@@ -6,8 +6,8 @@ const {
   topicTitleIsUnique,
   addTopicToTreeRoot,
   addTopicToParent,
-  addTopicMarkdown,
   saveAndSendContent,
+  addTopicMarkdown,
   loadContent,
 } = require("./lib");
 

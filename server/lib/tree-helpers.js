@@ -1,6 +1,7 @@
 const { promisify } = require("util");
 const fs = require("fs");
 const path = require("path");
+
 const writeFile = promisify(fs.writeFile);
 
 const topicTitlesOnly = (topic) => topic.title;
@@ -16,14 +17,6 @@ const matchCase = (rightString) => (leftString) =>
   leftString.toLowerCase() === rightString.toLowerCase();
 const topicTitleIsUnique = (topicName, topic) =>
   !titlesOnly(topic).some(matchCase(topicName));
-
-function addTopicMarkdown(topicName, parentName) {
-  console.log(
-    `Adding markdown for ${topicName} ${
-      parentName ? `under ${parentName}` : ""
-    }`
-  );
-}
 
 function addTopicToTreeRoot(
   content,
@@ -155,5 +148,4 @@ module.exports = {
   addTopicToTreeRoot,
   loadContent,
   addTopicToParent,
-  addTopicMarkdown,
 };
