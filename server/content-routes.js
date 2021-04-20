@@ -20,18 +20,26 @@ module.exports = function (rootFolder) {
   router.post("/", async (req, res) => {
     const { topic, difficulty, parent } = req.body;
 
-    if (!topicTitleIsUnique(topic, content)) {
-      const error = new Error(`topic title "${topic}" is not unique.`);
+    try {
+      if (!topicTitleIsUnique(topic, content)) {
+        const error = new Error(`topic title "${topic}" is not unique.`);
+        console.error(error);
+        res.status(500).json(error);
+      } else if (parent) {
+        content = addTopicToParent(content, parent, {
+          title: topic,
+          difficulty,
+        });
+        await addTopicMarkdown(rootFolder, topic, parent);
+        await saveAndSendContent(res, content, rootFolder);
+      } else {
+        content = addTopicToTreeRoot(content, { title: topic, difficulty });
+        await addTopicMarkdown(rootFolder, topic);
+        await saveAndSendContent(res, content, rootFolder);
+      }
+    } catch (error) {
       console.error(error);
       res.status(500).json(error);
-    } else if (parent) {
-      content = addTopicToParent(content, parent, { title: topic, difficulty });
-      addTopicMarkdown(topic, parent);
-      await saveAndSendContent(res, content, rootFolder);
-    } else {
-      content = addTopicToTreeRoot(content, { title: topic, difficulty });
-      addTopicMarkdown(topic);
-      await saveAndSendContent(res, content, rootFolder);
     }
   });
 
