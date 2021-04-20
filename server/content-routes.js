@@ -2,30 +2,37 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const { promisify } = require("util");
-const { topicTitleIsUnique, addTopicToTreeRoot, addTopicToParent, saveAndSendContent, loadContent } = require("./lib");
+const {
+  topicTitleIsUnique,
+  addTopicToTreeRoot,
+  addTopicToParent,
+  addTopicMarkdown,
+  saveAndSendContent,
+  loadContent,
+} = require("./lib");
 
 const readFile = promisify(fs.readFile);
 const router = express.Router();
 
 module.exports = function (rootFolder) {
-
   let content = loadContent(rootFolder);
 
   router.post("/", async (req, res) => {
     const { topic, difficulty, parent } = req.body;
 
     if (!topicTitleIsUnique(topic, content)) {
-      const error = new Error(`topic title "${topic}" is not unique.`)
-      console.error(error)
+      const error = new Error(`topic title "${topic}" is not unique.`);
+      console.error(error);
       res.status(500).json(error);
     } else if (parent) {
       content = addTopicToParent(content, parent, { title: topic, difficulty });
+      addTopicMarkdown(topic, parent);
       await saveAndSendContent(res, content, rootFolder);
     } else {
       content = addTopicToTreeRoot(content, { title: topic, difficulty });
+      addTopicMarkdown(topic);
       await saveAndSendContent(res, content, rootFolder);
     }
-
   });
 
   router.get("/", async (req, res) => {

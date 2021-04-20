@@ -3,13 +3,32 @@ const fs = require("fs");
 const path = require("path");
 const writeFile = promisify(fs.writeFile);
 
-const topicTitlesOnly = topic => topic.title
-const nestedTitlesOnly = (subTitles, topic) => [ ...subTitles, ...titlesOnly(topic)];
-const titlesOnly = ({ agenda=[] }) => [...agenda.map(topicTitlesOnly), ...agenda.reduce(nestedTitlesOnly, [])];
-const matchCase = rightString => leftString => leftString.toLowerCase() === rightString.toLowerCase()
-const topicTitleIsUnique = (topicName, topic) => !titlesOnly(topic).some(matchCase(topicName));
+const topicTitlesOnly = (topic) => topic.title;
+const nestedTitlesOnly = (subTitles, topic) => [
+  ...subTitles,
+  ...titlesOnly(topic),
+];
+const titlesOnly = ({ agenda = [] }) => [
+  ...agenda.map(topicTitlesOnly),
+  ...agenda.reduce(nestedTitlesOnly, []),
+];
+const matchCase = (rightString) => (leftString) =>
+  leftString.toLowerCase() === rightString.toLowerCase();
+const topicTitleIsUnique = (topicName, topic) =>
+  !titlesOnly(topic).some(matchCase(topicName));
 
-function addTopicToTreeRoot(content, { title, difficulty="beginner", type="section", required=true }) {
+function addTopicMarkdown(topicName, parentName) {
+  console.log(
+    `Adding markdown for ${topicName} ${
+      parentName ? `under ${parentName}` : ""
+    }`
+  );
+}
+
+function addTopicToTreeRoot(
+  content,
+  { title, difficulty = "beginner", type = "section", required = true }
+) {
   return {
     ...content,
     agenda: [
@@ -19,9 +38,9 @@ function addTopicToTreeRoot(content, { title, difficulty="beginner", type="secti
         difficulty,
         type,
         required,
-        agenda: []
-      }
-    ]
+        agenda: [],
+      },
+    ],
   };
 }
 
@@ -30,53 +49,56 @@ function findTopicByTitle(content, title) {
     return content;
   }
   if (content.agenda) {
-    for (let i=0; i<content.agenda.length; i++) {
+    for (let i = 0; i < content.agenda.length; i++) {
       const topic = findTopicByTitle(content.agenda[i], title);
       if (topic) {
-        return topic
+        return topic;
       }
     }
   }
 }
 
-const _replaceTopic = topic => t => {
+const _replaceTopic = (topic) => (t) => {
   let newTopic = t;
   if (t.title === topic.title) {
     newTopic = topic;
-  } 
+  }
 
   if (newTopic.agenda) {
     return {
       ...newTopic,
-      agenda: newTopic.agenda.map(_replaceTopic(topic))
-    }
+      agenda: newTopic.agenda.map(_replaceTopic(topic)),
+    };
   }
 
   return newTopic;
-
-}
+};
 
 function replaceTopic(content, topic) {
-  
   if (content.agenda) {
     return {
       ...content,
-      agenda: content.agenda.map(_replaceTopic(topic))
-    }
+      agenda: content.agenda.map(_replaceTopic(topic)),
+    };
   }
 
   return content;
 }
- 
-function addTopicToParent(content, parent, { title, difficulty="beginner", required=true }) {
+
+function addTopicToParent(
+  content,
+  parent,
+  { title, difficulty = "beginner", required = true }
+) {
   let parentTopic = findTopicByTitle(content, parent);
-  const type = parentTopic.type === "section" 
-    ? "sample"
-    : !parentTopic.type 
-    ? "meta" 
-    : parentTopic.type.match(/sample|exercise|lab/)
-    ? "step" 
-    : "meta";
+  const type =
+    parentTopic.type === "section"
+      ? "sample"
+      : !parentTopic.type
+      ? "meta"
+      : parentTopic.type.match(/sample|exercise|lab/)
+      ? "step"
+      : "meta";
 
   if (!parentTopic.agenda) {
     parentTopic.agenda = [];
@@ -89,15 +111,18 @@ function addTopicToParent(content, parent, { title, difficulty="beginner", requi
       difficulty,
       type,
       required,
-      agenda: []
-    }
+      agenda: [],
+    },
   ];
   return replaceTopic(content, parentTopic);
 }
 
 async function saveAndSendContent(res, content, rootFolder) {
   try {
-    await writeFile(path.join(rootFolder, "timesplitter.json"), JSON.stringify(content, null, 2));
+    await writeFile(
+      path.join(rootFolder, "timesplitter.json"),
+      JSON.stringify(content, null, 2)
+    );
   } catch (error) {
     console.error(error);
     res.json(error);
@@ -106,12 +131,11 @@ async function saveAndSendContent(res, content, rootFolder) {
 }
 
 function loadContent(rootFolder) {
-
   let content = fs.readFileSync(
     path.join(rootFolder, "timesplitter.json"),
     "UTF-8"
   );
-  
+
   try {
     content = JSON.parse(content);
   } catch (error) {
@@ -126,9 +150,10 @@ function loadContent(rootFolder) {
 }
 
 module.exports = {
-    topicTitleIsUnique,
-    saveAndSendContent,
-    addTopicToTreeRoot,
-    loadContent,
-    addTopicToParent
-}
+  topicTitleIsUnique,
+  saveAndSendContent,
+  addTopicToTreeRoot,
+  loadContent,
+  addTopicToParent,
+  addTopicMarkdown,
+};
