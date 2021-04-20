@@ -10,6 +10,7 @@ export const useContent = () => {
       .then(toJSON)
       .then(setContent)
       .catch(throwIt(`An error occurred while loading ${url}`));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return [content, setContent];
 };
@@ -44,20 +45,22 @@ export function useTreeContent() {
     fetch(`/content`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ topic, difficulty, parent }),
     })
       .then(toJSON)
       .then((content) => {
         if (!content.title) {
-          throw new Error(`Something went wrong while adding ${topic} to timesplitter.`);
+          throw new Error(
+            `Something went wrong while adding ${topic} to timesplitter.`
+          );
         }
         setContent(content);
       })
       .then(setContent)
       .catch(console.error);
-  }
+  };
 
   return { title, children, data, setTree, addTopic };
 }

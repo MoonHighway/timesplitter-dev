@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import { BsDiamondFill } from "react-icons/bs";
@@ -50,45 +49,48 @@ function useDifficultyOptions(value) {
     { value: "intermediate", label: <BlueSquare /> },
     { value: "advanced", label: <BlackDiamond /> },
     { value: "expert", label: <DoubleDiamond /> },
-  ]
+  ];
 
   useEffect(() => {
     if (!value) return;
-    setSelected(options.find(item => item.value === value))
+    setSelected(options.find((item) => item.value === value));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-
-  return { 
-    selected, 
-    options, 
+  return {
+    selected,
+    options,
     setDifficulty: (value) =>
-      setSelected(options.find(item => item.value === value)) 
-  }
-
+      setSelected(options.find((item) => item.value === value)),
+  };
 }
 
 export function DifficultyDropDown({
   selectedValue = "beginner",
   size = "sm",
-  onChange=f=>f
+  onChange = (f) => f,
 }) {
-  const { selected, options, setDifficulty } = useDifficultyOptions(selectedValue);
-
-
+  const { selected, options, setDifficulty } = useDifficultyOptions(
+    selectedValue
+  );
 
   return (
     <Container className="difficulty-drop-down">
-      <Select value={selected} options={options} onChange={({ value }) => {
-        onChange(value);
-        setDifficulty(value);
-      }} />
+      <Select
+        value={selected}
+        options={options}
+        onChange={({ value }) => {
+          onChange(value);
+          setDifficulty(value);
+        }}
+      />
     </Container>
   );
 }
 
 const Container = styled.div`
   margin: 5px;
-  >div:first-child {
+  > div:first-child {
     width: 100px;
   }
   div[class$="control"],
@@ -102,4 +104,4 @@ const Container = styled.div`
   .prefix__input {
     color: transparent;
   }
-`
+`;

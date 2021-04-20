@@ -7,7 +7,7 @@ import { fonts } from "../../theme";
 export default function AddForm({
   title = "",
   difficulty = "beginner",
-  agenda=[],
+  agenda = [],
   onNewTopic = (f) => f,
 }) {
   const [_title, setTitle] = useState(title);
@@ -15,10 +15,12 @@ export default function AddForm({
 
   useEffect(() => {
     if (title !== _title) setTitle(title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title]);
 
   useEffect(() => {
     if (difficulty !== _difficulty) setDifficulty(difficulty);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [difficulty]);
 
   const sendTopic = () => {
@@ -28,21 +30,23 @@ export default function AddForm({
     onNewTopic(_title, _difficulty);
     setTitle("");
     setDifficulty("beginner");
-  }
+  };
 
   return (
     <Container>
       <BarOne>
-          <input
-            value={_title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="new topic"
-          ></input>
-          <DifficultyDropDown selectedValue={difficulty} size="sm" onChange={setDifficulty} />
+        <input
+          value={_title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="new topic"
+        ></input>
+        <DifficultyDropDown
+          selectedValue={difficulty}
+          size="sm"
+          onChange={setDifficulty}
+        />
 
-        <Button
-          disabled={_title.trim() === ""}
-          onClick={sendTopic}>
+        <Button disabled={_title.trim() === ""} onClick={sendTopic}>
           Add
         </Button>
       </BarOne>
@@ -71,7 +75,7 @@ const BarOne = styled.div`
     flex-grow: 1;
     margin: 5px;
     border-radius: 5px;
-    border: solid 1px #CCC;
+    border: solid 1px #ccc;
     padding: 0 10px;
     font-family: ${fonts.subTitle};
     font-size: 1.2em;
