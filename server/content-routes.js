@@ -19,12 +19,9 @@ module.exports = function (rootFolder) {
 
   router.post("/", async (req, res) => {
     const { topic, difficulty, parent } = req.body;
-
     try {
       if (!topicTitleIsUnique(topic, content)) {
-        const error = new Error(`topic title "${topic}" is not unique.`);
-        console.error(error);
-        res.status(500).json(error);
+        throw new Error(`topic title "${topic}" is not unique.`);
       } else if (parent) {
         content = addTopicToParent(content, parent, {
           title: topic,
