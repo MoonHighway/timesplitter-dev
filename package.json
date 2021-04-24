@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "react-select": "^4.3.0"
+    "react-select": "^4.3.0",
+    "rimraf": "^3.0.2"
   },
   "bin": {
     "timesplitter-dev": "server/index.js"
