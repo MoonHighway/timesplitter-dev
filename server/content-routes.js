@@ -17,6 +17,19 @@ const router = express.Router();
 module.exports = function (rootFolder) {
   let content = loadContent(rootFolder);
 
+  router.put("/", async (req, res) => {
+    const { content } = req.body;
+    //treeToFiles(content, rootFolder);
+
+    //
+    // Something is wrong with here
+    //
+
+    console.log("\n\nSaving Content");
+    console.log(JSON.stringify(content, null, 2));
+    await saveAndSendContent(res, content, rootFolder);
+  });
+
   router.post("/", async (req, res) => {
     const { topic, difficulty, parent } = req.body;
     try {

@@ -41,6 +41,22 @@ export function useTreeContent() {
     setTree(children);
   }, [children]);
 
+  const sortTopics = (content) => {
+    fetch(`/content`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content }),
+    })
+      .then(toJSON)
+      .then((...args) => {
+        console.log(args);
+        setTree(content);
+      })
+      .catch(console.error);
+  };
+
   const addTopic = (topic, difficulty, parent) => {
     fetch(`/content`, {
       method: "POST",
@@ -62,7 +78,7 @@ export function useTreeContent() {
       .catch(console.error);
   };
 
-  return { title, children, data, setTree, addTopic };
+  return { title, children, data, sortTopics, addTopic };
 }
 
 export function useInput(initVal) {
