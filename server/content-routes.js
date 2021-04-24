@@ -7,7 +7,6 @@ const {
   addTopicToTreeRoot,
   addTopicToParent,
   saveAndSendContent,
-  addTopicMarkdown,
   loadContent,
 } = require("./lib");
 
@@ -27,11 +26,19 @@ module.exports = function (rootFolder) {
           title: topic,
           difficulty,
         });
-        await addTopicMarkdown(rootFolder, topic, parent);
+
+        //
+        // Write Files
+        //
+
         await saveAndSendContent(res, content, rootFolder);
       } else {
         content = addTopicToTreeRoot(content, { title: topic, difficulty });
-        await addTopicMarkdown(rootFolder, topic);
+
+        //
+        // Write Files
+        //
+
         await saveAndSendContent(res, content, rootFolder);
       }
     } catch (error) {

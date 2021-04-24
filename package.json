@@ -22,7 +22,9 @@
     "start:client": "react-scripts start",
     "start": "export NODE_ENV=development; concurrently \"npm run start:server\" \"npm run start:client\"",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test:client": "react-scripts test",
+    "test:server": "jest --testPathIgnorePatterns src",
+    "test": "npm run test:server; npm run test:client;",
     "bump": "node bump"
   },
   "proxy": "http://localhost:4200",
