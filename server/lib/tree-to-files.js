@@ -23,13 +23,19 @@ const buildFiles = (root, _trash) => (topic) => {
   }
 };
 
-const isMarkdownFile = (name) => name.match(/.md/);
-const isDirectory = (name) => !name.match(/.md/);
+const isMarkdownFile = (name) => name.match(/.md|.MD/);
+const isDirectory = (name) => !name.match(/.md|.MD/);
 
 function moveMarkdownToTrash(root, _trash) {
   const contents = fs
     .readdirSync(root)
-    .filter((name) => !name.match(/_trash|_assets/));
+    .filter(
+      (name) =>
+        !name.match(/_trash|_assets/) &&
+        !urlFriendly(name).match(
+          /instructions.md|readme.md|timesplitter.json|timesplitter.config.json/
+        )
+    );
   const markdown = contents.filter(isMarkdownFile);
   const directories = contents.filter(isDirectory);
   markdown.forEach((file) => {

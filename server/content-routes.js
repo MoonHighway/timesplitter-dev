@@ -8,6 +8,7 @@ const {
   addTopicToParent,
   saveAndSendContent,
   loadContent,
+  treeToFiles,
 } = require("./lib");
 
 const readFile = promisify(fs.readFile);
@@ -26,19 +27,11 @@ module.exports = function (rootFolder) {
           title: topic,
           difficulty,
         });
-
-        //
-        // Write Files
-        //
-
+        treeToFiles(content, rootFolder);
         await saveAndSendContent(res, content, rootFolder);
       } else {
         content = addTopicToTreeRoot(content, { title: topic, difficulty });
-
-        //
-        // Write Files
-        //
-
+        treeToFiles(content, rootFolder);
         await saveAndSendContent(res, content, rootFolder);
       }
     } catch (error) {
