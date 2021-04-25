@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTreeContent } from "../hooks";
 import AddForm from "./AddForm";
 import CourseTitle from "./CourseTitle";
@@ -8,8 +7,15 @@ import TopicMarkdown from "./TopicMarkdown";
 import { setSelectedBranch } from "../lib";
 
 export default function App() {
-  let { title, children, data, sortTopics, addTopic } = useTreeContent();
-  const [selectedTitle, setSelectedTitle] = useState();
+  let {
+    title,
+    children,
+    data,
+    sortTopics,
+    addTopic,
+    selectedTitle,
+    setSelectedTitle,
+  } = useTreeContent();
 
   const onAddTopic = (title, difficulty) =>
     addTopic(title, difficulty, selectedTitle);

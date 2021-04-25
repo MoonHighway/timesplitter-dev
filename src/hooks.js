@@ -15,10 +15,31 @@ export const useContent = () => {
     if (content) return;
     fetch(url)
       .then(toJSON)
+      .then((c) => toTree(c))
+      .then((c) => {
+        const key = `@course-${c.title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .trim()}`;
+        const localContent = localStorage.getItem(key);
+        if (localContent) {
+          const _content = JSON.parse(localContent);
+          return replenishExpanded(c, _content);
+        }
+        return c;
+      })
       .then(setContent)
       .catch(throwIt(`An error occurred while loading ${url}`));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (!content) return;
+    const key = `@course-${content.title
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .trim()}`;
+    localStorage.setItem(key, JSON.stringify(content));
+  }, [content]);
   return [content, setContent];
 };
 
@@ -41,6 +62,17 @@ export function useTreeContent() {
     return toTree(content);
   }, [content]);
   const [data, setTree] = useState(children);
+  const [selectedTitle, setSelectedTitle] = useState(
+    localStorage.getItem(`@ts-selected-title`)
+  );
+
+  useEffect(() => {
+    if (!selectedTitle) {
+      localStorage.removeItem(`@ts-selected-title`);
+      return;
+    }
+    localStorage.setItem(`@ts-selected-title`, selectedTitle);
+  }, [selectedTitle]);
 
   useEffect(() => {
     if (!children.length) return;
@@ -88,7 +120,15 @@ export function useTreeContent() {
       .catch(console.error);
   };
 
-  return { title, children, data, sortTopics, addTopic };
+  return {
+    title,
+    children,
+    data,
+    sortTopics,
+    addTopic,
+    selectedTitle,
+    setSelectedTitle,
+  };
 }
 
 export function useInput(initVal) {
