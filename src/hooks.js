@@ -88,7 +88,7 @@ export function useTreeContent() {
       body: JSON.stringify(
         fromTree({
           ...content,
-          agenda,
+          children: agenda,
         })
       ),
     })
@@ -114,7 +114,7 @@ export function useTreeContent() {
             `Something went wrong while adding ${topic} to timesplitter.`
           );
         }
-        setContent(content);
+        setContent(toTree(content));
       })
       .then(setContent)
       .catch(console.error);

@@ -9,7 +9,10 @@ const {
   saveAndSendContent,
   loadContent,
   treeToFiles,
+  removeExpanded,
+  toTree,
 } = require("./lib");
+const deepEqual = require("deep-equal");
 
 const readFile = promisify(fs.readFile);
 const router = express.Router();
@@ -18,18 +21,14 @@ module.exports = function (rootFolder) {
   let content = loadContent(rootFolder);
 
   router.put("/", async (req, res) => {
-    console.log(req.body);
+    const incomingContent = removeExpanded(req.body);
 
-    //const { content } = req.body;
-    //treeToFiles(content, rootFolder);
+    if (deepEqual(content, incomingContent)) {
+      return res.json(content);
+    }
 
-    //
-    // Something is wrong with here
-    //
-
-    // console.log("\n\nSaving Content");
-    // console.log(JSON.stringify(content, null, 2));
-    await saveAndSendContent(res, content, rootFolder);
+    treeToFiles(incomingContent, rootFolder);
+    await saveAndSendContent(res, incomingContent, rootFolder);
   });
 
   router.post("/", async (req, res) => {

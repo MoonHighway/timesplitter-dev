@@ -24,7 +24,7 @@ export function fromTree(o) {
     const { children, ...fields } = o;
     return {
       ...fields,
-      agenda: children.map(toTree),
+      agenda: children.map(fromTree),
     };
   }
   return o;

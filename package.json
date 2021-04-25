@@ -11,6 +11,7 @@
     "url": "https://github.com/MoonHighway/timesplitter-dev.git "
   },
   "dependencies": {
+    "deep-equal": "^2.0.5",
     "express": "^4.17.1",
     "react-select": "^4.3.0",
     "rimraf": "^3.0.2"

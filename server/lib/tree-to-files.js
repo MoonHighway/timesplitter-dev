@@ -5,7 +5,7 @@ const rimraf = require("rimraf");
 const urlFriendly = (str) => str && str.toLowerCase().trim().replace(/ /g, "-");
 const buildFiles = (root, _trash) => (topic) => {
   const name = path.join(root, urlFriendly(topic.title));
-  if (topic.agenda) {
+  if (topic.agenda && topic.agenda.length) {
     if (!fs.existsSync(name)) fs.mkdirSync(name);
     const subRoot = path.join(root, urlFriendly(topic.title));
     topic.agenda.forEach(buildFiles(subRoot, _trash));
