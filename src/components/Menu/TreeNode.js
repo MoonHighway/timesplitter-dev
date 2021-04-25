@@ -3,17 +3,19 @@ import { Draggable, Expandable } from "./DragDrop";
 import { TopicIcon, totalTime } from "../../lib";
 import styled from "styled-components";
 
-export default function TreeNode({ node, onSelect=f=>f }) {
+export default function TreeNode({ node, onSelect = (f) => f }) {
   return (
     <Container>
-      <Expandable node={node} onExpand={() => onSelect(node.node.title)} />
-      <Node selected={node.selected} 
-        type={node.node.type} 
-        required={node.node.required} 
+      <Expandable node={node} />
+      <Node
+        selected={node.selected}
+        type={node.node.type}
+        required={node.node.required}
         onClick={() => {
           if (node.selected) onSelect();
           else onSelect(node.node.title);
-        }}>
+        }}
+      >
         <Draggable connectDragSource={node.connectDragSource}>
           <Handle type={node.node.type} required={node.node.required}>
             <TopicIcon type={node.node.type} />
@@ -27,7 +29,7 @@ export default function TreeNode({ node, onSelect=f=>f }) {
 
 const Container = styled.div`
   position: relative;
-`
+`;
 
 const Handle = styled.div`
   height: 50px;
@@ -59,21 +61,21 @@ const Node = styled.div`
   opacity: ${({ required }) => (required === true ? "1" : "0.5")};
   cursor: pointer;
   background-color: ${({ required, selected, type }) =>
-    selected === true 
+    selected === true
       ? type === "section" || type === "meta"
         ? "lightblue"
         : type === "exercise"
-          ? "#daade6"
-          : type === "lab" || type === "course-lab"
-            ? "#ade6bb"
-            : type === "slides"
-              ? "#e6adad"
-              : type === "sample"
-                ? "#e6e1ad"
-                : "#adb2e5"
-      : required === true 
-        ? "white" 
-        : "#E0E0E0"};
+        ? "#daade6"
+        : type === "lab" || type === "course-lab"
+        ? "#ade6bb"
+        : type === "slides"
+        ? "#e6adad"
+        : type === "sample"
+        ? "#e6e1ad"
+        : "#adb2e5"
+      : required === true
+      ? "white"
+      : "#E0E0E0"};
   position: relative;
   display: flex;
   flex-direction: row;
