@@ -33,7 +33,7 @@ export const useContent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (!content) return;
+    if (!content || !content.title) return;
     const key = `@course-${content.title
       .toLowerCase()
       .replace(/ /g, "-")

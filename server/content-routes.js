@@ -19,6 +19,7 @@ const router = express.Router();
 
 module.exports = function (rootFolder) {
   let content = loadContent(rootFolder);
+  treeToFiles(content, rootFolder);
 
   router.put("/", async (req, res) => {
     const incomingContent = removeExpanded(req.body);

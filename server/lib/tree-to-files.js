@@ -31,9 +31,9 @@ function moveMarkdownToTrash(root, _trash) {
     .readdirSync(root)
     .filter(
       (name) =>
-        !name.match(/_trash|_assets/) &&
+        !name.match(/_trash|_assets|node_modules|.git/) &&
         !urlFriendly(name).match(
-          /instructions.md|readme.md|timesplitter.json|timesplitter.config.json/
+          /instructions.md|readme.md|timesplitter.json|timesplitter.config.json|.gitignore|.env|package.json|package.lock.json|.ds_store/
         )
     );
   const markdown = contents.filter(isMarkdownFile);

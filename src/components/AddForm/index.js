@@ -41,7 +41,7 @@ export default function AddForm({
           placeholder="new topic"
         ></input>
         <DifficultyDropDown
-          selectedValue={difficulty}
+          selectedValue={_difficulty}
           size="sm"
           onChange={setDifficulty}
         />

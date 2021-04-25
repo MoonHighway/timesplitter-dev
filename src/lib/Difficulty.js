@@ -74,6 +74,11 @@ export function DifficultyDropDown({
     selectedValue
   );
 
+  useEffect(() => {
+    console.log(selectedValue);
+    setDifficulty(selectedValue);
+  }, [selectedValue]);
+
   return (
     <Container className="difficulty-drop-down">
       <Select
