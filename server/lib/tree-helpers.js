@@ -110,11 +110,25 @@ function addTopicToParent(
   return replaceTopic(content, parentTopic);
 }
 
+function removeExpanded(content) {
+  let _content = content;
+  delete _content.expanded;
+
+  if (_content.agenda) {
+    _content = {
+      ..._content,
+      agenda: _content.agenda.map(removeExpanded),
+    };
+  }
+
+  return _content;
+}
+
 async function saveAndSendContent(res, content, rootFolder) {
   try {
     await writeFile(
       path.join(rootFolder, "timesplitter.json"),
-      JSON.stringify(content, null, 2)
+      JSON.stringify(removeExpanded(content), null, 2)
     );
   } catch (error) {
     console.error(error);
@@ -148,4 +162,5 @@ module.exports = {
   addTopicToTreeRoot,
   loadContent,
   addTopicToParent,
+  removeExpanded,
 };

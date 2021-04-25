@@ -18,15 +18,17 @@ module.exports = function (rootFolder) {
   let content = loadContent(rootFolder);
 
   router.put("/", async (req, res) => {
-    const { content } = req.body;
+    console.log(req.body);
+
+    //const { content } = req.body;
     //treeToFiles(content, rootFolder);
 
     //
     // Something is wrong with here
     //
 
-    console.log("\n\nSaving Content");
-    console.log(JSON.stringify(content, null, 2));
+    // console.log("\n\nSaving Content");
+    // console.log(JSON.stringify(content, null, 2));
     await saveAndSendContent(res, content, rootFolder);
   });
 

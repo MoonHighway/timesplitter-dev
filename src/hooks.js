@@ -1,5 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
-import { toJSON, toText, throwIt, toTree } from "./lib";
+import {
+  toJSON,
+  toText,
+  throwIt,
+  toTree,
+  fromTree,
+  replenishExpanded,
+} from "./lib";
 
 export const useContent = () => {
   const [content, setContent] = useState();
@@ -33,7 +40,6 @@ export function useTreeContent() {
     if (!content) return { title: "", children: [] };
     return toTree(content);
   }, [content]);
-
   const [data, setTree] = useState(children);
 
   useEffect(() => {
@@ -41,19 +47,23 @@ export function useTreeContent() {
     setTree(children);
   }, [children]);
 
-  const sortTopics = (content) => {
+  const sortTopics = (agenda) => {
     fetch(`/content`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ content }),
+      body: JSON.stringify(
+        fromTree({
+          ...content,
+          agenda,
+        })
+      ),
     })
       .then(toJSON)
-      .then((...args) => {
-        console.log(args);
-        setTree(content);
-      })
+      .then(toTree)
+      .then((c) => replenishExpanded(c, { ...content, children: agenda }))
+      .then(setContent)
       .catch(console.error);
   };
 
