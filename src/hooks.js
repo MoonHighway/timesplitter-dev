@@ -29,7 +29,10 @@ export const useContent = () => {
         return c;
       })
       .then(setContent)
-      .catch(throwIt(`An error occurred while loading ${url}`));
+      .catch((error) => {
+        console.error(error);
+        throwIt(`An error occurred while loading ${url}`)(error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {

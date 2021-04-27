@@ -18,8 +18,13 @@ const readFile = promisify(fs.readFile);
 const router = express.Router();
 
 module.exports = function (rootFolder) {
-  let content = loadContent(rootFolder);
-  treeToFiles(content, rootFolder);
+  let content;
+  try {
+    content = loadContent(rootFolder);
+    treeToFiles(content, rootFolder);
+  } catch (error) {
+    throw error;
+  }
 
   router.put("/", async (req, res) => {
     const incomingContent = removeExpanded(req.body);
