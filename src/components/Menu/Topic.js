@@ -6,10 +6,10 @@ export default function Topic({
   difficulty = "beginner",
   length,
   title,
-  children,
+  onClick=f=>f,
 }) {
   return (
-    <Details difficulty={difficulty}>
+    <Details difficulty={difficulty} onClick={onClick}>
       <h1>{title}</h1>
       <div>
         <DifficultyInfo difficulty={difficulty}>

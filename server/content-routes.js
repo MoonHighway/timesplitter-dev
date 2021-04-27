@@ -1,29 +1,66 @@
 const express = require("express");
-const { promisify } = require("util");
 const fs = require("fs");
 const path = require("path");
+const { promisify } = require("util");
+const {
+  topicTitleIsUnique,
+  addTopicToTreeRoot,
+  addTopicToParent,
+  saveAndSendContent,
+  loadContent,
+  treeToFiles,
+  removeExpanded,
+  toTree,
+} = require("./lib");
+const deepEqual = require("deep-equal");
 
 const readFile = promisify(fs.readFile);
-
 const router = express.Router();
 
 module.exports = function (rootFolder) {
-  router.get("/", async (req, res) => {
-    let content = await readFile(
-      path.join(rootFolder, "timesplitter.json"),
-      "UTF-8"
-    );
+  let content;
+  try {
+    content = loadContent(rootFolder);
+    treeToFiles(content, rootFolder);
+  } catch (error) {
+    throw error;
+  }
 
-    try {
-      content = JSON.parse(content);
-    } catch (error) {
-      let clearError = new Error(
-        "There was an error parsing the timesplitter.json file"
-      );
-      console.error(clearError);
-      throw error;
+  router.put("/", async (req, res) => {
+    const incomingContent = removeExpanded(req.body);
+
+    if (deepEqual(content, incomingContent)) {
+      return res.json(content);
     }
 
+    treeToFiles(incomingContent, rootFolder);
+    await saveAndSendContent(res, incomingContent, rootFolder);
+  });
+
+  router.post("/", async (req, res) => {
+    const { topic, difficulty, parent } = req.body;
+    try {
+      if (!topicTitleIsUnique(topic, content)) {
+        throw new Error(`topic title "${topic}" is not unique.`);
+      } else if (parent) {
+        content = addTopicToParent(content, parent, {
+          title: topic,
+          difficulty,
+        });
+        treeToFiles(content, rootFolder);
+        await saveAndSendContent(res, content, rootFolder);
+      } else {
+        content = addTopicToTreeRoot(content, { title: topic, difficulty });
+        treeToFiles(content, rootFolder);
+        await saveAndSendContent(res, content, rootFolder);
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
+  });
+
+  router.get("/", async (req, res) => {
     if (typeof content !== "object" || Array.isArray(content)) {
       throw new Error(
         "timesplitter.json must contain an object with a 'title' and 'agenda' fields"

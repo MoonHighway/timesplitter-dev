@@ -3,11 +3,19 @@ import { Draggable, Expandable } from "./DragDrop";
 import { TopicIcon, totalTime } from "../../lib";
 import styled from "styled-components";
 
-export default function TreeNode({ node }) {
+export default function TreeNode({ node, onSelect = (f) => f }) {
   return (
-    <div style={{ position: "relative" }}>
+    <Container>
       <Expandable node={node} />
-      <Node required={node.node.required}>
+      <Node
+        selected={node.selected}
+        type={node.node.type}
+        required={node.node.required}
+        onClick={() => {
+          if (node.selected) onSelect();
+          else onSelect(node.node.title);
+        }}
+      >
         <Draggable connectDragSource={node.connectDragSource}>
           <Handle type={node.node.type} required={node.node.required}>
             <TopicIcon type={node.node.type} />
@@ -15,13 +23,18 @@ export default function TreeNode({ node }) {
         </Draggable>
         <Topic time={totalTime(node.node)} {...node.node} />
       </Node>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  position: relative;
+`;
 
 const Handle = styled.div`
   height: 50px;
   width: 50px;
+  cursor: grab;
   background-color: ${({ type, required }) =>
     required !== true
       ? "#E0E0E0"
@@ -46,8 +59,23 @@ const Handle = styled.div`
 
 const Node = styled.div`
   opacity: ${({ required }) => (required === true ? "1" : "0.5")};
-  background-color: ${({ required }) =>
-    required === true ? "white" : "#E0E0E0"};
+  cursor: pointer;
+  background-color: ${({ required, selected, type }) =>
+    selected === true
+      ? type === "section" || type === "meta"
+        ? "lightblue"
+        : type === "exercise"
+        ? "#daade6"
+        : type === "lab" || type === "course-lab"
+        ? "#ade6bb"
+        : type === "slides"
+        ? "#e6adad"
+        : type === "sample"
+        ? "#e6e1ad"
+        : "#adb2e5"
+      : required === true
+      ? "white"
+      : "#E0E0E0"};
   position: relative;
   display: flex;
   flex-direction: row;

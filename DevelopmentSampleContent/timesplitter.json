@@ -29,9 +29,18 @@
       "required": true,
       "length": 10,
       "agenda": [
-        { "title": "sample one", "difficulty": "intermediate" },
-        { "title": "sample two", "difficulty": "advanced" },
-        { "title": "sample three", "difficulty": "expert" }
+        {
+          "title": "sample one",
+          "difficulty": "intermediate"
+        },
+        {
+          "title": "sample two",
+          "difficulty": "advanced"
+        },
+        {
+          "title": "sample three",
+          "difficulty": "expert"
+        }
       ]
     }
   ]

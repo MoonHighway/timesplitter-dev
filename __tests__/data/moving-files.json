@@ -1,0 +1,36 @@
+{
+  "title": "Sample Tree",
+  "agenda": [
+    {
+      "title": "Chapter One",
+      "agenda": [
+        {
+          "title": "a project",
+          "agenda": [
+            { "title": "step one" },
+            {
+              "title": "step two",
+              "agenda": [
+                { "title": "minor step One" },
+                { "title": "minor step Two" }
+              ]
+            },
+            {
+              "title": "step three",
+              "agenda": [
+                { "title": "Conclusion" },
+                {
+                  "title": "Chapter Two",
+                  "agenda": [
+                    { "title": "short chapter" },
+                    { "title": "welcome to class" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

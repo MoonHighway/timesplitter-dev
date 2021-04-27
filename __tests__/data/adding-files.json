@@ -1,0 +1,40 @@
+{
+  "title": "Sample Tree",
+  "agenda": [
+    {
+      "title": "Chapter One",
+      "agenda": [
+        { "title": "welcome to class" },
+        {
+          "title": "a project",
+          "agenda": [
+            { "title": "step one" },
+            {
+              "title": "step two",
+              "agenda": [
+                { "title": "minor step One" },
+                { "title": "minor step Two" }
+              ]
+            },
+            { "title": "step three" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Major Changes",
+      "agenda": [{ "title": "side notes" }]
+    },
+    {
+      "title": "Chapter Two",
+      "agenda": [
+        {
+          "title": "Short Chapter",
+          "agenda": [{ "title": "getting longer" }, { "title": "more content" }]
+        }
+      ]
+    },
+    { "title": "Conclusion" },
+    { "title": "Questions and Answers" }
+  ]
+}

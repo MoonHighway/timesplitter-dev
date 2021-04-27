@@ -5,7 +5,7 @@ export default function TopicMarkdown() {
 }
 
 const Container = styled.div`
-  grid-area: 3 / 2 / 8 / 5;
+  grid-area: 3 / 2 / 11 / 5;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -11,7 +11,10 @@
     "url": "https://github.com/MoonHighway/timesplitter-dev.git "
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "deep-equal": "^2.0.5",
+    "express": "^4.17.1",
+    "react-select": "^4.3.0",
+    "rimraf": "^3.0.2"
   },
   "bin": {
     "timesplitter-dev": "server/index.js"
@@ -21,7 +24,9 @@
     "start:client": "react-scripts start",
     "start": "export NODE_ENV=development; concurrently \"npm run start:server\" \"npm run start:client\"",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test:client": "react-scripts test",
+    "test:server": "jest --testPathIgnorePatterns src",
+    "test": "npm run test:server; npm run test:client;",
     "bump": "node bump"
   },
   "proxy": "http://localhost:4200",
@@ -44,17 +49,17 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "concurrently": "^6.0.0",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.5",
+    "concurrently": "^6.0.2",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-scripts": "4.0.3",
     "react-sortable-tree": "^2.8.0",
-    "styled-components": "^5.2.1",
+    "styled-components": "^5.2.3",
     "web-vitals": "^1.0.1"
   }
 }
