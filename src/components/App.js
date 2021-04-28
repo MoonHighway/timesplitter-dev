@@ -5,6 +5,8 @@ import Menu from "./Menu";
 import TopicMeta from "./TopicMeta";
 import TopicMarkdown from "./TopicMarkdown";
 import { setSelectedBranch } from "../lib";
+import { colors } from "../theme";
+import styled from "styled-components";
 
 export default function App() {
   let {
@@ -32,10 +34,20 @@ export default function App() {
           selectedTitle={selectedTitle}
           onSelect={setSelectedTitle}
         />
-        <TopicMeta />
-        <TopicMarkdown />
+        <TopicCard>
+          <TopicMeta />
+          <TopicMarkdown />
+        </TopicCard>
       </>
     );
   }
   return null;
 }
+
+const TopicCard = styled.section`
+  grid-area: 2 / 2 / 11 / 5;
+  margin: 0 71px 45px 0;
+  border: 4px solid ${colors.darkbland};
+  border-radius: 80px;
+  box-shadow: 10px 13px 22px 9px ${colors.darkbland};
+`;
