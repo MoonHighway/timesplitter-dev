@@ -1,6 +1,7 @@
 import Topic from "./Topic";
 import { Draggable, Expandable } from "./DragDrop";
 import { TopicIcon, totalTime } from "../../lib";
+import { colors } from "../../theme";
 import styled from "styled-components";
 
 export default function TreeNode({ node, onSelect = (f) => f }) {
@@ -37,18 +38,18 @@ const Handle = styled.div`
   cursor: grab;
   background-color: ${({ type, required }) =>
     required !== true
-      ? "#E0E0E0"
+      ? colors.notRequired
       : type === "section" || type === "meta"
-      ? "lightblue"
+      ? colors.meta
       : type === "exercise"
-      ? "#daade6"
+      ? colors.exercise
       : type === "lab" || type === "course-lab"
-      ? "#ade6bb"
+      ? colors.lab
       : type === "slides"
-      ? "#e6adad"
+      ? colors.slides
       : type === "sample"
-      ? "#e6e1ad"
-      : "#adb2e5"};
+      ? colors.sample
+      : colors.noTopic};
   display: flex;
   justify-content: center;
   align-items: center;

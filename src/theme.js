@@ -59,4 +59,11 @@ export const colors = {
   bland: "#97AFC2",
   darkbland: "#798D9C",
   highlight: "#4DFFA7",
+  notRequired: "#E0E0E0",
+  meta: "lightblue",
+  sample: "#e6e1ad",
+  lab: "#ade6bb",
+  exercise: "#daade6",
+  slides: "#f53b3b",
+  noTopic: "#adb2e5",
 };
