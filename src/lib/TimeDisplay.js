@@ -20,7 +20,7 @@ export function TimeDisplay({ time, size = 12 }) {
     return (
       <>
         <Timer size={size} />
-        {time} minutes
+        <span>{time} minutes</span>
       </>
     );
   }

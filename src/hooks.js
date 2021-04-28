@@ -145,3 +145,14 @@ export function useInput(initVal) {
     onChange,
   };
 }
+
+export const useTopicTypeCount = (topics = []) =>
+  useMemo(() => {
+    // if (!topics || !topics.length) return;
+    return {
+      slides: 2,
+      samples: 15,
+      labSteps: 10,
+      exerciseSteps: 7,
+    };
+  }, [topics]);
