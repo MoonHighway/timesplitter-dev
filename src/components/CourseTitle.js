@@ -53,6 +53,7 @@ export default function CourseTitle({ title, topics = [] }) {
           <p>time</p>
           <p>difficulty</p>
           <p>required</p>
+          <p>%</p>
         </InfoChoice>
       </Row>
     </Container>

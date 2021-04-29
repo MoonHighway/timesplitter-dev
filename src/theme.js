@@ -23,7 +23,7 @@ export const colors = {
   darkbland: "#798D9C",
   darkhard: "#313236",
   highlight: "#4DFFA7",
-  notRequired: "#E0E0E0",
+  notRequired: "#ABABAB",
   meta: "lightblue",
   sample: "#e6e1ad",
   lab: "#ade6bb",
