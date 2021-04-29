@@ -10,13 +10,16 @@ export default function TopicMarkdown() {
 
 const Container = styled.div`
   grid-area: 3 / 2 / 11 / 5;
-  height: calc(100% - 160px);
+  flex-grow: 1;
+  height: 100%;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 
   textarea {
     width: calc(100% - 40px);
-    height: calc(100% - 40px);
+    height: calc(100% - 116px);
+    margin: 20px;
   }
 `;

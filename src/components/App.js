@@ -46,8 +46,10 @@ export default function App() {
 
 const TopicCard = styled.section`
   grid-area: 2 / 2 / 11 / 5;
-  margin: 0 71px 45px 0;
-  border: 4px solid ${colors.darkbland};
-  border-radius: 80px;
+  margin: 0;
+  border-top: 4px solid ${colors.darkbland};
+  border-left: 4px solid ${colors.darkbland};
+  border-radius: 80px 0 0 0;
   box-shadow: 10px 13px 22px 9px ${colors.darkbland};
+  background-color: white;
 `;

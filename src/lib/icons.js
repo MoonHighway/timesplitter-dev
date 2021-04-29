@@ -14,13 +14,13 @@ export const TopicIcon = ({ type, ...props }) =>
   ) : type === "course-lab" ? (
     <CourseLab {...props} />
   ) : type === "exercise" ? (
-    <Exercise />
+    <Exercise {...props} />
   ) : type === "slides" || type === "section" ? (
-    <Slides />
+    <Slides {...props} />
   ) : type === "meta" ? (
-    <Info />
+    <Info {...props} />
   ) : (
-    <Code>{"{ }"}</Code>
+    <Code {...props}>{"{ }"}</Code>
   );
 
 const Code = styled.p`

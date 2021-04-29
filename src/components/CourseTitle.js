@@ -10,6 +10,24 @@ export default function CourseTitle({ title, topics = [] }) {
   return (
     <Container>
       <Row>
+        <Column>
+          <h1>{title}</h1>
+          <TypeRow>
+            <TimeDisplay
+              fill={colors.meta}
+              size={25}
+              time={totalTime({ children: topics })}
+            />
+            <TopicIcon type="slides" fill={colors.slides} />
+            <span>{slides} presentations</span>
+            <TopicIcon type="samples" fill={colors.samples} />
+            <span>{samples} samples</span>
+            <TopicIcon type="lab" fill={colors.lab} />
+            <span>{labSteps} lab steps</span>
+            <TopicIcon type="exercise" fill={colors.exercise} />
+            <span>{exerciseSteps} exercise steps</span>
+          </TypeRow>
+        </Column>
         <PieChart
           className="chart"
           startAngle={200}
@@ -30,20 +48,12 @@ export default function CourseTitle({ title, topics = [] }) {
             },
           ]}
         />
-        <Column>
-          <h1>{title}</h1>
-          <TypeRow>
-            <TimeDisplay size={25} time={totalTime({ children: topics })} />
-            <TopicIcon type="slides" />
-            <span>{slides} presentations</span>
-            <TopicIcon type="samples" />
-            <span>{samples} samples</span>
-            <TopicIcon type="lab" />
-            <span>{labSteps} lab steps</span>
-            <TopicIcon type="exercise" />
-            <span>{exerciseSteps} exercise steps</span>
-          </TypeRow>
-        </Column>
+        <InfoChoice>
+          <p class="selected">topics</p>
+          <p>time</p>
+          <p>difficulty</p>
+          <p>required</p>
+        </InfoChoice>
       </Row>
     </Container>
   );
@@ -52,7 +62,10 @@ export default function CourseTitle({ title, topics = [] }) {
 const Container = styled.div`
   padding: 20px;
   grid-area: 1 / 2 / 2 / 5;
-
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-family: ${fonts.text};
   h1 {
     font-family: ${fonts.title};
     font-size: 5em;
@@ -63,6 +76,20 @@ const Container = styled.div`
   }
   span {
     flex-grow: 1;
+  }
+`;
+
+const InfoChoice = styled.div`
+  margin-left: 30px;
+
+  p.selected {
+    position: relative;
+    color: ${colors.highlight};
+    &:before {
+      content: "< ";
+      position: absolute;
+      left: -15px;
+    }
   }
 `;
 
@@ -78,6 +105,9 @@ const TypeRow = styled.div`
   align-items: center;
   position: relative;
   left: 22px;
+  span {
+    margin-left: 10px;
+  }
 `;
 
 const Column = styled.div`

@@ -1,6 +1,6 @@
 import { Timer } from ".";
 
-export function TimeDisplay({ time, size = 12 }) {
+export function TimeDisplay({ time, size = 12, ...props }) {
   if (time >= 60) {
     let h = Math.floor(time / 60);
     let m = time % 60;
@@ -19,7 +19,7 @@ export function TimeDisplay({ time, size = 12 }) {
   if (time) {
     return (
       <>
-        <Timer size={size} />
+        <Timer size={size} {...props} />
         <span>{time} minutes</span>
       </>
     );
