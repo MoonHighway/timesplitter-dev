@@ -1,31 +1,30 @@
-import { TimeDisplay, DifficultyDropDown } from "../lib";
+import {
+  TimeDisplay,
+  DifficultyDropDown,
+  TopicTypeSelect,
+  totalTime,
+} from "../lib";
 import styled from "styled-components";
 
-export default function TopicMeta() {
+export default function TopicMeta(node) {
   return (
     <Container>
       <Row>
-        <h2>Topic Title</h2>
+        <h2>{node.title}</h2>
         <button>[SAVE] Save</button>
       </Row>
       <Row>
         <Row>
-          <input type="checkbox" defaultChecked={true} /> required
+          <input type="checkbox" defaultChecked={node.required || false} />{" "}
+          required
         </Row>
-        <TimeDisplay time={120} />
+        <TimeDisplay time={totalTime(node)} />
         <Row>
-          <input type="checkbox" defaultChecked={true} /> [LOCK]
+          <input type="checkbox" defaultChecked={node.locked || false} /> [LOCK]
         </Row>
-        <DifficultyDropDown selectedValue="beginner" />
+        <DifficultyDropDown selectedValue={node.difficulty || "beginner"} />
         <Row>
-          <select>
-            <option>section</option>
-            <option>meta</option>
-            <option>sample</option>
-            <option>exercise</option>
-            <option>lab</option>
-            <option>step</option>
-          </select>
+          <TopicTypeSelect selectedValue={node.type} />
         </Row>
         <Row>[OPEN] Timesplitter</Row>
       </Row>

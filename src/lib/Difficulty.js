@@ -75,7 +75,6 @@ export function DifficultyDropDown({
   );
 
   useEffect(() => {
-    console.log(selectedValue);
     setDifficulty(selectedValue);
   }, [selectedValue]);
 
@@ -87,6 +86,56 @@ export function DifficultyDropDown({
         onChange={({ value }) => {
           onChange(value);
           setDifficulty(value);
+        }}
+      />
+    </Container>
+  );
+}
+
+function useTopicTypeOptions(value = "step") {
+  const [selected, setSelected] = useState(value);
+  const options = [
+    { value: "section", label: "section" },
+    { value: "meta", label: "meta" },
+    { value: "slides", label: "slides" },
+    { value: "sample", label: "sample" },
+    { value: "exercise", label: "exercise" },
+    { value: "lab", label: "lab" },
+    { value: "step", label: "step" },
+  ];
+
+  useEffect(() => {
+    if (!value) return;
+    setSelected(options.find((item) => item.value === value));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  return {
+    selected,
+    options,
+    setType: (value) =>
+      setSelected(options.find((item) => item.value === value)),
+  };
+}
+
+export function TopicTypeSelect({
+  selectedValue = "sample",
+  onChange = (f) => f,
+}) {
+  const { selected, options, setType } = useTopicTypeOptions(selectedValue);
+
+  useEffect(() => {
+    setType(selectedValue);
+  }, [selectedValue]);
+
+  return (
+    <Container className="topic-type-drop-down">
+      <Select
+        value={selected}
+        options={options}
+        onChange={({ value }) => {
+          onChange(value);
+          setType(value);
         }}
       />
     </Container>

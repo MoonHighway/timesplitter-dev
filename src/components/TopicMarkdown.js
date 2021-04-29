@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function TopicMarkdown() {
   return (
     <Container>
-      <textarea>Insert Markdown Text Here</textarea>
+      <textarea defaultValue="Insert Markdown Here" />
     </Container>
   );
 }

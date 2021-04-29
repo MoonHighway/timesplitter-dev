@@ -1,7 +1,6 @@
 import Topic from "./Topic";
 import { Draggable, Expandable } from "./DragDrop";
 import { TopicIcon, totalTime, getTypeColor } from "../../lib";
-import { colors } from "../../theme";
 import styled from "styled-components";
 
 export default function TreeNode({ node, onSelect = (f) => f }) {
@@ -14,7 +13,7 @@ export default function TreeNode({ node, onSelect = (f) => f }) {
         required={node.node.required}
         onClick={() => {
           if (node.selected) onSelect();
-          else onSelect(node.node.title);
+          else onSelect(node.node);
         }}
       >
         <Draggable connectDragSource={node.connectDragSource}>

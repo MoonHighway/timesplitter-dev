@@ -65,17 +65,18 @@ export function useTreeContent() {
     return toTree(content);
   }, [content]);
   const [data, setTree] = useState(children);
-  const [selectedTitle, setSelectedTitle] = useState(
-    localStorage.getItem(`@ts-selected-title`)
+  const [selectedNode, setSelectedNode] = useState(
+    localStorage.getItem(`@ts-selected-node`) &&
+      JSON.parse(localStorage.getItem(`@ts-selected-node`))
   );
 
   useEffect(() => {
-    if (!selectedTitle) {
-      localStorage.removeItem(`@ts-selected-title`);
+    if (!selectedNode) {
+      localStorage.removeItem(`@ts-selected-node`);
       return;
     }
-    localStorage.setItem(`@ts-selected-title`, selectedTitle);
-  }, [selectedTitle]);
+    localStorage.setItem(`@ts-selected-node`, JSON.stringify(selectedNode));
+  }, [selectedNode]);
 
   useEffect(() => {
     if (!children.length) return;
@@ -129,8 +130,8 @@ export function useTreeContent() {
     data,
     sortTopics,
     addTopic,
-    selectedTitle,
-    setSelectedTitle,
+    selectedNode,
+    setSelectedNode,
   };
 }
 

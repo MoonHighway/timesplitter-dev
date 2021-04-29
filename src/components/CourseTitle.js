@@ -49,7 +49,7 @@ export default function CourseTitle({ title, topics = [] }) {
           ]}
         />
         <InfoChoice>
-          <p class="selected">topics</p>
+          <p className="selected">topics</p>
           <p>time</p>
           <p>difficulty</p>
           <p>required</p>
