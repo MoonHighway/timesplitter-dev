@@ -11,13 +11,15 @@ export default function TopicMarkdown({ content, title }) {
 
   const md = useContentFile(`/${url}`);
 
+  console.log(title, md);
+
   if (!md) {
     return <p>Something went wrong while locating Markdown content.</p>;
   }
 
   return (
     <Container>
-      <textarea defaultValue={md} />
+      <textarea value={md} />
     </Container>
   );
 }

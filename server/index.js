@@ -4,7 +4,7 @@ const fs = require("fs");
 const express = require("express");
 const { exec } = require("child_process");
 const contentRoutes = require("./content-routes");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 
 let [, , rootFolder] = process.argv;
 rootFolder = rootFolder
@@ -12,8 +12,8 @@ rootFolder = rootFolder
   : path.resolve(process.cwd());
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use("/content", contentRoutes(rootFolder));
 
 if (process.env.NODE_ENV !== "development") {
@@ -44,5 +44,4 @@ app.listen(4200, () => {
   if (process.env.NODE_ENV !== "development") {
     exec("open http://localhost:4200");
   }
-
 });
