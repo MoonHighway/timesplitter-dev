@@ -76,6 +76,7 @@ export function DifficultyDropDown({
 
   useEffect(() => {
     setDifficulty(selectedValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedValue]);
 
   return (
@@ -126,6 +127,7 @@ export function TopicTypeSelect({
 
   useEffect(() => {
     setType(selectedValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedValue]);
 
   return (

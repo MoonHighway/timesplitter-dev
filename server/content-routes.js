@@ -96,12 +96,10 @@ module.exports = function (rootFolder) {
   router.get("/agenda/:fullPath*", async (req, res) => {
     const [, , ...p] = req.url.split("/");
     const filePath = path.join(rootFolder, p.join("/"));
-    console.log(filePath);
     try {
       const content = await readFile(`${filePath}.md`, "UTF-8");
       if (!content) {
         const [missingContentFile] = p.reverse();
-        console.log("sending", missingContentFile);
         return res.send(`# TODO: Add Content For ${missingContentFile}`);
       }
       res.send(content);

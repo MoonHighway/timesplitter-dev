@@ -1,17 +1,21 @@
+import { useState, useEffect } from "react";
 import { useContentFile } from "../hooks";
 import { getTopicPath, urlFriendly } from "../lib";
 import { fonts } from "../theme";
 import styled from "styled-components";
 
 export default function TopicMarkdown({ content, title }) {
-  const url = getTopicPath(content, title).replace(
-    urlFriendly(content.title),
-    "agenda"
+  const [path, setPath] = useState(
+    getTopicPath(content, title).replace(urlFriendly(content.title), "agenda")
   );
+  const md = useContentFile(path);
 
-  const md = useContentFile(`/${url}`);
-
-  console.log(title, md);
+  useEffect(() => {
+    if (!title) return;
+    setPath(
+      getTopicPath(content, title).replace(urlFriendly(content.title), "agenda")
+    );
+  }, [title]);
 
   if (!md) {
     return <p>Something went wrong while locating Markdown content.</p>;
@@ -19,7 +23,7 @@ export default function TopicMarkdown({ content, title }) {
 
   return (
     <Container>
-      <textarea value={md} />
+      <textarea value={md} readOnly={true} />
     </Container>
   );
 }

@@ -48,18 +48,16 @@ export const useContent = () => {
 
 export const useContentFile = (path) => {
   const [content, setContent] = useState();
-  const url = `/content${path}`;
-  console.log(url);
   useEffect(() => {
     if (!path) {
-      console.log("empty Path");
       return;
     }
-    fetch(url)
+    fetch(`/content/${path}`)
       .then(toText)
       .then(setContent)
-      .catch(throwIt(`An error occurred while loading ${url}`));
-  }, [url]);
+      .catch(throwIt(`An error occurred while loading ${path}`));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [path]);
   return content;
 };
 
@@ -161,4 +159,5 @@ export const useTopicTypeCount = (topics = []) =>
       labSteps: 10,
       exerciseSteps: 7,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topics]);

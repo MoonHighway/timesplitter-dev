@@ -36,7 +36,9 @@ export function getTopicPath(topic, title, path = []) {
 
   if (topic.agenda) {
     return topic.agenda
-      .map((t) => getTopicPath(t, title, [...path, urlFriendly(topic.title)]))
+      .map((t) => {
+        return getTopicPath(t, title, [...path, urlFriendly(topic.title)]);
+      })
       .flat()
       .filter((x) => x)
       .join("/");
