@@ -3,10 +3,10 @@ import { getTopicPath } from ".";
 describe("getTopicPath(content, title)", () => {
   const _testTopic = {
     title: "Course Node",
-    agenda: [
+    children: [
       {
         title: "Chapter One",
-        agenda: [
+        children: [
           {
             title: "Course Welcome",
           },
@@ -17,10 +17,10 @@ describe("getTopicPath(content, title)", () => {
       },
       {
         title: "Chapter Two",
-        agenda: [
+        children: [
           {
             title: "sample one",
-            agenda: [
+            children: [
               { title: "deep one" },
               { title: "deep two" },
               { title: "deep three" },
