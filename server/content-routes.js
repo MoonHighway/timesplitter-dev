@@ -97,7 +97,12 @@ module.exports = function (rootFolder) {
     const [, , ...p] = req.url.split("/");
     const filePath = path.join(rootFolder, p.join("/"));
     try {
+      console.log("loading");
       const content = await readFile(`${filePath}.md`, "UTF-8");
+      if (!content) {
+        const [missingContentFile] = p.reverse();
+        res.send(`# TODO: Add Content For ${missingContentFile}`);
+      }
       res.send(content);
     } catch (error) {
       res.status(500).send(error);

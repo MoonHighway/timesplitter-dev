@@ -49,7 +49,12 @@ export const useContent = () => {
 export const useContentFile = (path) => {
   const [content, setContent] = useState();
   const url = `/content${path}`;
+  console.log(url);
   useEffect(() => {
+    if (!path) {
+      console.log("empty Path");
+      return;
+    }
     fetch(url)
       .then(toText)
       .then(setContent)

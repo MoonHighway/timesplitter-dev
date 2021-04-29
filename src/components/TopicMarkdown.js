@@ -1,9 +1,23 @@
+import { useContentFile } from "../hooks";
+import { getTopicPath, urlFriendly } from "../lib";
+import { fonts } from "../theme";
 import styled from "styled-components";
 
-export default function TopicMarkdown() {
+export default function TopicMarkdown({ content, title }) {
+  const url = getTopicPath(content, title).replace(
+    urlFriendly(content.title),
+    "agenda"
+  );
+
+  const md = useContentFile(`/${url}`);
+
+  if (!md) {
+    return <p>Something went wrong while locating Markdown content.</p>;
+  }
+
   return (
     <Container>
-      <textarea defaultValue="Insert Markdown Here" />
+      <textarea defaultValue={md} />
     </Container>
   );
 }
@@ -21,5 +35,9 @@ const Container = styled.div`
     width: calc(100% - 40px);
     height: calc(100% - 116px);
     margin: 20px;
+    font-family: ${fonts.text};
+    font-size: 1.5em;
+    padding: 0.5em;
+    overflow-x: scroll;
   }
 `;

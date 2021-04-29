@@ -38,8 +38,11 @@ export default function App() {
         <TopicCard type={selectedNode && selectedNode.type}>
           {selectedNode ? (
             <>
-              <TopicMeta {...(selectedNode ? selectedNode : {})} />
-              <TopicMarkdown title={selectedNode && selectedNode.title} />
+              <TopicMeta {...selectedNode} />
+              <TopicMarkdown
+                title={selectedNode.title}
+                content={{ title, agenda: data }}
+              />
             </>
           ) : (
             <p className="empty-message">Select a Topic from the menu</p>
