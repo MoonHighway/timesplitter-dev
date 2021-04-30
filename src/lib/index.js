@@ -6,6 +6,7 @@ export * from "./Difficulty";
 export * from "./Layout";
 export * from "./helpers";
 export * from "./setSelectedBranch";
+export * from "./countTopics.js";
 
 export const getTypeColor = ({ type, required = false }) =>
   !required
