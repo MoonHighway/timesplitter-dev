@@ -1,32 +1,64 @@
-import {
-  TimeDisplay,
-  DifficultyDropDown,
-  TopicTypeSelect,
-  totalTime,
-} from "../lib";
+import { useState, useEffect } from "react";
+import { DifficultyDropDown, TopicTypeSelect } from "../lib";
+import { fonts } from "../theme";
 import styled from "styled-components";
 
 export default function TopicMeta(node) {
+  const [title, setTitle] = useState(node.title);
+  const [type, setType] = useState(node.type);
+  const [length, setLength] = useState(node.length || 0);
+  const [required, setRequired] = useState(node.required || false);
+  const [locked, setLocked] = useState(node.locked || false);
+  const [difficulty, setDifficulty] = useState(node.difficulty || false);
+
+  useEffect(() => setTitle(node.title), [node.title]);
+  useEffect(() => setType(node.type), [node.type]);
+  useEffect(() => setRequired(node.required), [node.required]);
+  useEffect(() => setLocked(node.locked), [node.locked]);
+  useEffect(() => setDifficulty(node.difficulty), [node.difficulty]);
+
   return (
     <Container>
       <Row>
-        <h2>{node.title}</h2>
+        <Title
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          onFocus={(e) => e.target.select()}
+        />
         <button>[SAVE] Save</button>
+        <button>[DELETE] Save</button>
       </Row>
       <Row>
-        <Row>
-          <input type="checkbox" defaultChecked={node.required || false} />{" "}
+        <div>
+          <input
+            type="checkbox"
+            value={required}
+            onChange={(e) => setRequired(e.target.checked)}
+          />{" "}
           required
-        </Row>
-        <TimeDisplay time={totalTime(node)} />
-        <Row>
-          <input type="checkbox" defaultChecked={node.locked || false} /> [LOCK]
-        </Row>
-        <DifficultyDropDown selectedValue={node.difficulty || "beginner"} />
-        <Row>
-          <TopicTypeSelect selectedValue={node.type} />
-        </Row>
-        <Row>[OPEN] Timesplitter</Row>
+        </div>
+        <div>
+          <input
+            type="number"
+            value={length}
+            onChange={(e) => setLength(e.target.value)}
+          />
+          time
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            value={locked}
+            onChange={(e) => setLocked(e.target.checked)}
+          />{" "}
+          [LOCK]
+        </div>
+        <DifficultyDropDown
+          selectedValue={difficulty}
+          onChange={setDifficulty}
+        />
+        <TopicTypeSelect selectedValue={type} onChange={setType} />
+        <button>[OPEN] Timesplitter</button>
       </Row>
     </Container>
   );
@@ -36,10 +68,23 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  padding: 20px 40px;
 `;
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.input`
+  border: none;
+  flex-grow: 1;
+  font-family: ${fonts.subtitle};
+  font-size: 3em;
+  padding: 0.25em;
+  font-weight: bold;
+  outline: none;
 `;
