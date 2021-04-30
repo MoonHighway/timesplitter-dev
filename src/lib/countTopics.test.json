@@ -1,12 +1,12 @@
 {
   "title": "Timesplitter Development Mode",
-  "agenda": [
+  "children": [
     {
       "title": "Chapter One",
       "type": "section",
       "difficulty": "beginner",
       "required": true,
-      "agenda": [
+      "children": [
         {
           "title": "Course Welcome",
           "length": 5,
@@ -15,7 +15,7 @@
         },
         {
           "title": "Course Details",
-          "type": "sample",
+          "type": "slides",
           "length": 5,
           "difficulty": "beginner",
           "required": true
@@ -23,8 +23,8 @@
         {
           "title": "Course Hours",
           "difficulty": "intermediate",
-          "type": "slides",
-          "agenda": [
+          "type": "sample",
+          "children": [
             {
               "title": "am hours",
               "difficulty": "beginner",
@@ -47,21 +47,21 @@
       "difficulty": "advanced",
       "required": true,
       "length": 10,
-      "agenda": [
+      "children": [
         {
-          "title": "sample one",
+          "title": "dimp one",
           "difficulty": "intermediate",
           "type": "step",
           "required": true
         },
         {
-          "title": "sample two",
+          "title": "dimp two",
           "difficulty": "advanced",
           "type": "step",
           "required": false
         },
         {
-          "title": "sample three",
+          "title": "dimp three",
           "difficulty": "expert",
           "type": "step",
           "required": false
@@ -73,22 +73,22 @@
       "difficulty": "advanced",
       "type": "section",
       "required": true,
-      "agenda": [
+      "children": [
         {
           "title": "Threeview",
           "difficulty": "beginner",
           "type": "sample",
           "length": 5,
           "required": true,
-          "agenda": []
+          "children": []
         },
         {
           "title": "Massive Topic",
           "difficulty": "intermediate",
-          "type": "slides",
+          "type": "sample",
           "required": true,
           "length": 5,
-          "agenda": []
+          "children": []
         },
         {
           "title": "Heart Heart",
@@ -96,20 +96,20 @@
           "type": "exercise",
           "required": true,
           "length": 20,
-          "agenda": [
+          "children": [
             {
               "title": "first heart",
               "difficulty": "advanced",
               "type": "step",
               "required": true,
-              "agenda": []
+              "children": []
             },
             {
               "title": "second heart",
               "difficulty": "advanced",
               "type": "step",
 
-              "agenda": []
+              "children": []
             }
           ]
         },
@@ -119,7 +119,7 @@
           "type": "lab",
           "length": 10,
 
-          "agenda": [
+          "children": [
             {
               "title": "big lab boy",
               "difficulty": "beginner",
@@ -138,7 +138,11 @@
       "title": "Course Lab",
       "difficulty": "expert",
       "length": 2,
-      "type": "lab"
+      "type": "lab",
+      "children": [
+        { "title": "final step one", "type": "step" },
+        { "title": "final step two", "type": "step" }
+      ]
     }
   ]
 }
