@@ -1,5 +1,5 @@
 import { FaCode, FaUserGraduate, FaSquare, FaCircle } from "react-icons/fa";
-import { BsDiamondFill } from "react-icons/bs";
+import { BsDiamondFill, BsBraces } from "react-icons/bs";
 import { MdTimer } from "react-icons/md";
 import { RiSlideshowFill } from "react-icons/ri";
 import { GrWorkshop } from "react-icons/gr";
@@ -23,7 +23,7 @@ export const TopicIcon = ({ type, ...props }) =>
   ) : type === "meta" ? (
     <Info {...props} />
   ) : (
-    <Code {...props}>{"{ }"}</Code>
+    <BsBraces {...props} />
   );
 
 const Code = styled.p`

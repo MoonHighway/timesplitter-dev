@@ -1,18 +1,75 @@
 import { useState, useEffect } from "react";
-import { fonts } from "../theme";
+import { fonts, colors } from "../theme";
+import { TopicIcon } from ".";
 import Select from "react-select";
 import styled from "styled-components";
 
 function useTopicTypeOptions(value = "step") {
   const [selected, setSelected] = useState(value);
   const options = [
-    { value: "section", label: "section" },
-    { value: "meta", label: "meta" },
-    { value: "slides", label: "slides" },
-    { value: "sample", label: "sample" },
-    { value: "exercise", label: "exercise" },
-    { value: "lab", label: "lab" },
-    { value: "step", label: "step" },
+    {
+      value: "section",
+      label: (
+        <>
+          <TopicIcon type="section" fill={colors.primaryLight} />
+          <span>section</span>
+        </>
+      ),
+    },
+    {
+      value: "meta",
+      label: (
+        <>
+          <TopicIcon type="meta" fill={colors.meta} />
+          <span>meta</span>
+        </>
+      ),
+    },
+    {
+      value: "slides",
+      label: (
+        <>
+          <TopicIcon type="slides" fill={colors.slides} />
+          <span>slides</span>
+        </>
+      ),
+    },
+    {
+      value: "sample",
+      label: (
+        <>
+          <TopicIcon type="sample" fill={colors.sample} />
+          <span>sample</span>
+        </>
+      ),
+    },
+    {
+      value: "exercise",
+      label: (
+        <>
+          <TopicIcon type="exercise" fill={colors.exercise} />
+          <span>exercise</span>
+        </>
+      ),
+    },
+    {
+      value: "lab",
+      label: (
+        <>
+          <TopicIcon type="lab" fill={colors.lab} />
+          <span>lab</span>
+        </>
+      ),
+    },
+    {
+      value: "step",
+      label: (
+        <>
+          <TopicIcon type="step" fill={colors.darkbland} />
+          <span>step</span>
+        </>
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -59,21 +116,37 @@ const Container = styled.div`
 
   font-family: ${fonts.subtitle};
   font-size: 1.2em;
-  padding: 0.2em;
 
-  &.topic-type-drop-down {
+  > div:first-child {
     width: 200px;
   }
 
-  > div:first-child {
-    width: 100px;
+  div[class$="singleValue"] {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    svg {
+      margin-right: 10px;
+    }
   }
+
+  div[class$="menu"] {
+    svg {
+      margin-right: 20px;
+    }
+    span {
+      position: relative;
+      top: -5px;
+    }
+  }
+
   div[class$="control"],
   div[class$="ValueContainer"],
   div[class$="IndicatorsContainer"] {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding: 0 0.2em;
   }
 
   .prefix__input {
