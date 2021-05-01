@@ -2,11 +2,12 @@ import { colors } from "../theme";
 
 export * from "./icons";
 export * from "./TimeDisplay";
-export * from "./Difficulty";
 export * from "./Layout";
 export * from "./helpers";
 export * from "./setSelectedBranch";
 export * from "./countTopics.js";
+export * from "./TopicTypeSelect.js";
+export * from "./DifficultyDropDown";
 
 export const getTypeColor = ({ type, required = false }) =>
   !required

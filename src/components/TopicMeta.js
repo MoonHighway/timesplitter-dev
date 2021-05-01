@@ -29,35 +29,32 @@ export default function TopicMeta(node) {
         <button>[DELETE] Save</button>
       </Row>
       <Row>
-        <div>
+        <Row>
+          <TopicTypeSelect selectedValue={type} onChange={setType} />
+          <DifficultyDropDown
+            selectedValue={difficulty}
+            onChange={setDifficulty}
+          />
+          <input
+            type="number"
+            value={length}
+            onChange={(e) => setLength(e.target.value)}
+          />
+          time ]
           <input
             type="checkbox"
             value={required}
             onChange={(e) => setRequired(e.target.checked)}
           />{" "}
           required
-        </div>
-        <div>
-          <input
-            type="number"
-            value={length}
-            onChange={(e) => setLength(e.target.value)}
-          />
-          time
-        </div>
-        <div>
           <input
             type="checkbox"
             value={locked}
             onChange={(e) => setLocked(e.target.checked)}
           />{" "}
           [LOCK]
-        </div>
-        <DifficultyDropDown
-          selectedValue={difficulty}
-          onChange={setDifficulty}
-        />
-        <TopicTypeSelect selectedValue={type} onChange={setType} />
+        </Row>
+
         <button>[OPEN] Timesplitter</button>
       </Row>
     </Container>
@@ -70,6 +67,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: stretch;
   padding: 20px 40px;
+
+  .topic-type-drop-down {
+    margin-left: 12px;
+  }
 `;
 
 const Row = styled.div`
