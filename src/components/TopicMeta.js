@@ -34,6 +34,7 @@ export default function TopicMeta(node) {
           <DifficultyDropDown
             selectedValue={difficulty}
             onChange={setDifficulty}
+            size="md"
           />
           <input
             type="number"
