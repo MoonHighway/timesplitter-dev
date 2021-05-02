@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { DifficultyDropDown, TopicTypeSelect } from "../lib";
+import { DifficultyDropDown, TopicTypeSelect, TimeInput } from "../lib";
 import { fonts } from "../theme";
 import styled from "styled-components";
 
@@ -16,6 +16,7 @@ export default function TopicMeta(node) {
   useEffect(() => setRequired(node.required), [node.required]);
   useEffect(() => setLocked(node.locked), [node.locked]);
   useEffect(() => setDifficulty(node.difficulty), [node.difficulty]);
+  useEffect(() => setLength(node.length), [node.length]);
 
   return (
     <Container>
@@ -36,12 +37,7 @@ export default function TopicMeta(node) {
             onChange={setDifficulty}
             size="md"
           />
-          <input
-            type="number"
-            value={length}
-            onChange={(e) => setLength(e.target.value)}
-          />
-          time ]
+          <TimeInput time={length} disabled={false} onChange={setLength} />
           <input
             type="checkbox"
             value={required}
