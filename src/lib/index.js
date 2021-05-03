@@ -8,6 +8,7 @@ export * from "./setSelectedBranch";
 export * from "./countTopics.js";
 export * from "./TopicTypeSelect.js";
 export * from "./DifficultyDropDown";
+export * from "./Checkbox";
 
 export const getTypeColor = ({ type, required = false }) =>
   !required

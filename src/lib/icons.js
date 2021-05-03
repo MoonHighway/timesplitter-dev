@@ -1,13 +1,17 @@
 import { FaCode, FaUserGraduate, FaSquare, FaCircle } from "react-icons/fa";
-import { BsDiamondFill, BsBraces } from "react-icons/bs";
+import {
+  BsDiamondFill,
+  BsBraces,
+  BsFillExclamationOctagonFill,
+  BsLockFill,
+  BsUnlockFill,
+} from "react-icons/bs";
 import { MdTimer } from "react-icons/md";
 import { RiSlideshowFill } from "react-icons/ri";
 import { GrWorkshop } from "react-icons/gr";
 import { GoInfo } from "react-icons/go";
 import { ImLab } from "react-icons/im";
 import styled from "styled-components";
-
-import {} from "react-icons/fa";
 
 export const TopicIcon = ({ type, ...props }) =>
   type === "sample" ? (
@@ -58,6 +62,22 @@ export const Exercise = ({ color = "#898989", size = 25, ...props }) => (
 export const CourseLab = ({ color = "#898989", size = 25, ...props }) => (
   <FaUserGraduate size={size} color={color} {...props} />
 );
+
+export const Required = ({ color = "#f53b3b", size = 25, ...props }) => (
+  <BsFillExclamationOctagonFill size={size} color={color} {...props} />
+);
+
+export const Lock = ({
+  color = "#898989",
+  locked = false,
+  size = 25,
+  ...props
+}) =>
+  locked ? (
+    <BsLockFill size={size} color={color} {...props} />
+  ) : (
+    <BsUnlockFill size={size} color={color} {...props} />
+  );
 
 const Double = styled.div`
   float: left;

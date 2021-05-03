@@ -1,9 +1,9 @@
 import { useState, useReducer, useEffect, useRef } from "react";
-import { Timer } from ".";
+import { Timer, Lock } from ".";
 import { fonts, colors } from "../theme";
 import styled from "styled-components";
 
-export function TimeDisplay({ time, size = 12, ...props }) {
+export function TimeDisplay({ time, locked = false, size = 12, ...props }) {
   if (time >= 60) {
     let h = Math.floor(time / 60);
     let m = time % 60;
@@ -13,7 +13,16 @@ export function TimeDisplay({ time, size = 12, ...props }) {
 
     return (
       <>
-        <Timer size={size} {...props} />
+        {locked ? (
+          <Lock
+            locked={true}
+            size={size}
+            fill={colors.bland}
+            style={{ position: "relative", top: "-2px" }}
+          />
+        ) : (
+          <Timer size={size} {...props} />
+        )}
         {message}
       </>
     );
@@ -22,7 +31,16 @@ export function TimeDisplay({ time, size = 12, ...props }) {
   if (time) {
     return (
       <>
-        <Timer size={size} {...props} />
+        {locked ? (
+          <Lock
+            locked={true}
+            size={size}
+            fill={colors.bland}
+            style={{ position: "relative", top: "-2px" }}
+          />
+        ) : (
+          <Timer size={size} {...props} />
+        )}
         <span {...props}>{time} minutes</span>
       </>
     );
@@ -73,8 +91,9 @@ export function TimeInput({
       return (
         <Container {...props}>
           <TimeDisplay
+            locked={true}
             time={agendaTime}
-            style={{ color: colors.contrastLight, cursor: "not-allowed" }}
+            style={{ color: colors.bland, cursor: "not-allowed" }}
             size={35}
             onClick={() =>
               alert(
@@ -98,7 +117,6 @@ export function TimeInput({
       <Container {...props}>
         <Timer size={35} />
         <input
-          className
           ref={_input}
           type="number"
           value={_time}

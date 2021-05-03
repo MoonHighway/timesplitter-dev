@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import {
+  Checkbox,
   DifficultyDropDown,
   TopicTypeSelect,
   TimeInput,
   totalTime,
+  Required,
+  Lock,
 } from "../lib";
-import { fonts } from "../theme";
+import { fonts, colors } from "../theme";
 import styled from "styled-components";
 
 export default function TopicMeta(node) {
@@ -35,7 +38,7 @@ export default function TopicMeta(node) {
         <button>[DELETE] Save</button>
       </Row>
       <Row>
-        <Row>
+        <Row style={{ width: "100%" }}>
           <TopicTypeSelect selectedValue={type} onChange={setType} />
           <DifficultyDropDown
             selectedValue={difficulty}
@@ -48,18 +51,27 @@ export default function TopicMeta(node) {
             parentTime={null}
             onChange={setLength}
           />
-          <input
-            type="checkbox"
-            value={required}
-            onChange={(e) => setRequired(e.target.checked)}
-          />{" "}
-          required
-          <input
-            type="checkbox"
-            value={locked}
-            onChange={(e) => setLocked(e.target.checked)}
-          />{" "}
-          [LOCK]
+          <Checkbox
+            checked={required}
+            icon={<Required fill={required ? colors.required : colors.bland} />}
+            checkedLabel="required"
+            uncheckedLabel="not required"
+            checkedColor={colors.required}
+            uncheckedColor={colors.bland}
+            onChange={setRequired}
+          />
+          <Checkbox
+            checked={locked}
+            icon={
+              <Lock
+                locked={locked}
+                fill={locked ? colors.beginner : colors.bland}
+              />
+            }
+            checkedLabel="locked"
+            uncheckedLabel="not locked"
+            onChange={setLocked}
+          />
         </Row>
 
         <button>[OPEN] Timesplitter</button>

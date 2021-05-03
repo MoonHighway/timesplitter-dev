@@ -30,6 +30,9 @@ export const colors = {
   exercise: "#daade6",
   slides: "#f53b3b",
   noTopic: "#adb2e5",
+  beginner: "#32CD32",
+  intermediate: "#6c6cfd",
+  required: "#d25d5d",
 };
 
 export const GlobalStyle = createGlobalStyle`
