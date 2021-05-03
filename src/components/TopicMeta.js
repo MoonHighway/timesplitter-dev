@@ -45,12 +45,6 @@ export default function TopicMeta(node) {
             onChange={setDifficulty}
             size="md"
           />
-          <TimeInput
-            topicTime={length}
-            agendaTime={totalTime(node)}
-            parentTime={null}
-            onChange={setLength}
-          />
           <Checkbox
             checked={required}
             icon={<Required fill={required ? colors.required : colors.bland} />}
@@ -60,20 +54,28 @@ export default function TopicMeta(node) {
             uncheckedColor={colors.bland}
             onChange={setRequired}
           />
-          <Checkbox
-            checked={locked}
-            icon={
-              <Lock
-                locked={locked}
-                fill={locked ? colors.beginner : colors.bland}
-              />
-            }
-            checkedLabel="locked"
-            uncheckedLabel="not locked"
-            onChange={setLocked}
-          />
-        </Row>
 
+          <Row style={{ flexGrow: 1, justifyContent: "flex-start" }}>
+            <TimeInput
+              topicTime={length}
+              agendaTime={totalTime(node)}
+              parentTime={null}
+              onChange={setLength}
+            />
+            <Checkbox
+              checked={locked}
+              icon={
+                <Lock
+                  locked={locked}
+                  fill={locked ? colors.beginner : colors.bland}
+                />
+              }
+              checkedLabel="locked"
+              uncheckedLabel="not locked"
+              onChange={setLocked}
+            />
+          </Row>
+        </Row>
         <button>[OPEN] Timesplitter</button>
       </Row>
     </Container>
@@ -89,6 +91,10 @@ const Container = styled.div`
 
   .topic-type-drop-down {
     margin-left: 12px;
+  }
+
+  .difficulty-drop-down {
+    margin-right: 30px;
   }
 `;
 
