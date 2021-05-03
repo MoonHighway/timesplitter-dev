@@ -9,6 +9,7 @@ export * from "./countTopics.js";
 export * from "./TopicTypeSelect.js";
 export * from "./DifficultyDropDown";
 export * from "./Checkbox";
+export * from "./parentTime";
 
 export const getTypeColor = ({ type, required = false }) =>
   !required
