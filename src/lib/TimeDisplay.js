@@ -105,11 +105,11 @@ export function TimeInput({
       );
     }
 
-    return (
-      <Container {...props}>
-        <p>No Time</p>
-      </Container>
-    );
+    if (!!parentTime) {
+      return <Container {...props}>{parentTime}</Container>;
+    }
+
+    return null;
   }
 
   if (editing) {

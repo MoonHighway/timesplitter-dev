@@ -38,7 +38,10 @@ export default function App() {
         <TopicCard type={selectedNode && selectedNode.type}>
           {selectedNode ? (
             <>
-              <TopicMeta {...selectedNode} />
+              <TopicMeta
+                content={{ title, agenda: data }}
+                node={selectedNode}
+              />
               <TopicMarkdown
                 title={selectedNode.title}
                 content={{ title, agenda: data }}

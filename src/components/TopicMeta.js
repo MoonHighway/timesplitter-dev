@@ -5,13 +5,14 @@ import {
   TopicTypeSelect,
   TimeInput,
   totalTime,
+  parentTime,
   Required,
   Lock,
 } from "../lib";
 import { fonts, colors } from "../theme";
 import styled from "styled-components";
 
-export default function TopicMeta(node) {
+export default function TopicMeta({ content, node }) {
   const [title, setTitle] = useState(node.title);
   const [type, setType] = useState(node.type);
   const [length, setLength] = useState(node.length || 0);
@@ -59,21 +60,23 @@ export default function TopicMeta(node) {
             <TimeInput
               topicTime={length}
               agendaTime={totalTime(node)}
-              parentTime={null}
+              parentTime={parentTime(content, node.title)}
               onChange={setLength}
             />
-            <Checkbox
-              checked={locked}
-              icon={
-                <Lock
-                  locked={locked}
-                  fill={locked ? colors.beginner : colors.bland}
-                />
-              }
-              checkedLabel="locked"
-              uncheckedLabel="not locked"
-              onChange={setLocked}
-            />
+            {length && (
+              <Checkbox
+                checked={locked}
+                icon={
+                  <Lock
+                    locked={locked}
+                    fill={locked ? colors.beginner : colors.bland}
+                  />
+                }
+                checkedLabel="locked"
+                uncheckedLabel="not locked"
+                onChange={setLocked}
+              />
+            )}
           </Row>
         </Row>
         <button>[OPEN] Timesplitter</button>
