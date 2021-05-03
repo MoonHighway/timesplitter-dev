@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Tabs, Tab } from "react-tabs-adaptive";
 import { useContentFile } from "../hooks";
 import { getTopicPath, urlFriendly } from "../lib";
 import { fonts } from "../theme";
 import styled from "styled-components";
 
 export default function TopicMarkdown({ content, title }) {
+  const [tabIndex, setTabIndex] = useState(0);
   const [path, setPath] = useState(
     getTopicPath(content, title).replace(urlFriendly(content.title), "agenda")
   );
@@ -23,7 +25,14 @@ export default function TopicMarkdown({ content, title }) {
 
   return (
     <Container>
-      <textarea value={md} readOnly={true} />
+      <Tabs activeTabIndex={tabIndex}>
+        <Tab tabName="Presenter Notes" selectTab={setTabIndex}>
+          <textarea value={md} readOnly={true} />
+        </Tab>
+        <Tab tabName="Preview" selectTab={setTabIndex}>
+          Preview
+        </Tab>
+      </Tabs>
     </Container>
   );
 }
@@ -37,13 +46,28 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
 
-  textarea {
+  .Tabs {
     width: calc(100% - 40px);
     height: calc(100% - 116px);
-    margin: 20px;
+    margin: 0 55px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Tabs-Active-Content {
+    height: 100%;
+  }
+
+  textarea {
     font-family: ${fonts.text};
     font-size: 1.5em;
     padding: 0.5em;
     overflow-x: scroll;
+    width: 100%;
+    border: none;
+    resize: none;
+    min-height: calc(100% - 1em - 60px);
+    background-color: transparent;
+    overflow-y: scroll;
   }
 `;

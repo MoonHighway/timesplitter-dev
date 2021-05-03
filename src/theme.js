@@ -52,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
     grid-template-rows: repeat(10, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+    overflow: clip;
   }
 
   @font-face {
