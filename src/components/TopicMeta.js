@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { DifficultyDropDown, TopicTypeSelect, TimeInput } from "../lib";
+import {
+  DifficultyDropDown,
+  TopicTypeSelect,
+  TimeInput,
+  totalTime,
+} from "../lib";
 import { fonts } from "../theme";
 import styled from "styled-components";
 
@@ -37,7 +42,12 @@ export default function TopicMeta(node) {
             onChange={setDifficulty}
             size="md"
           />
-          <TimeInput time={length} disabled={false} onChange={setLength} />
+          <TimeInput
+            topicTime={length}
+            agendaTime={totalTime(node)}
+            parentTime={null}
+            onChange={setLength}
+          />
           <input
             type="checkbox"
             value={required}

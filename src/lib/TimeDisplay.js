@@ -13,7 +13,7 @@ export function TimeDisplay({ time, size = 12, ...props }) {
 
     return (
       <>
-        <Timer size={size} />
+        <Timer size={size} {...props} />
         {message}
       </>
     );
@@ -23,7 +23,7 @@ export function TimeDisplay({ time, size = 12, ...props }) {
     return (
       <>
         <Timer size={size} {...props} />
-        <span>{time} minutes</span>
+        <span {...props}>{time} minutes</span>
       </>
     );
   }
@@ -42,13 +42,14 @@ export function TimeDisplay({ time, size = 12, ...props }) {
 //
 
 export function TimeInput({
-  time,
-  disabled = false,
+  topicTime,
+  agendaTime,
+  parentTime,
   onChange = (f) => f,
   ...props
 }) {
   const [editing, toggleEditing] = useReducer((x) => !x, false);
-  const [_time, setTime] = useState(time);
+  const [_time, setTime] = useState(topicTime);
   const _input = useRef();
 
   const changeTime = (e) => {
@@ -57,8 +58,8 @@ export function TimeInput({
   };
 
   useEffect(() => {
-    setTime(time);
-  }, [time]);
+    setTime(topicTime);
+  }, [topicTime]);
 
   useEffect(() => {
     if (editing) {
@@ -67,7 +68,24 @@ export function TimeInput({
     }
   }, [editing]);
 
-  if (!time) {
+  if (!_time) {
+    if (!!agendaTime) {
+      return (
+        <Container {...props}>
+          <TimeDisplay
+            time={agendaTime}
+            style={{ color: colors.contrastLight, cursor: "not-allowed" }}
+            size={35}
+            onClick={() =>
+              alert(
+                `Time values are sent in child topics. In order to set the time for this topic you must remove the time associated with each child topic.`
+              )
+            }
+          />
+        </Container>
+      );
+    }
+
     return (
       <Container {...props}>
         <p>No Time</p>
@@ -97,7 +115,7 @@ export function TimeInput({
 
   return (
     <Container {...props} onClick={toggleEditing}>
-      <TimeDisplay time={time} size={35} />
+      <TimeDisplay time={_time} size={35} />
     </Container>
   );
 }
