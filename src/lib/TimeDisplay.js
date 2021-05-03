@@ -41,7 +41,9 @@ export function TimeDisplay({ time, locked = false, size = 12, ...props }) {
         ) : (
           <Timer size={size} {...props} />
         )}
-        <span {...props}>{time} minutes</span>
+        <span {...props}>
+          {time} minute{time === 1 ? "" : "s"}
+        </span>
       </>
     );
   }
@@ -86,30 +88,26 @@ export function TimeInput({
     }
   }, [editing]);
 
-  if (!_time) {
-    if (!!agendaTime) {
-      return (
-        <Container {...props}>
-          <TimeDisplay
-            locked={true}
-            time={agendaTime}
-            style={{ color: colors.bland, cursor: "not-allowed" }}
-            size={35}
-            onClick={() =>
-              alert(
-                `Time values are sent in child topics. In order to set the time for this topic you must remove the time associated with each child topic.`
-              )
-            }
-          />
-        </Container>
-      );
-    }
+  if (!_time && !!agendaTime) {
+    return (
+      <Container {...props}>
+        <TimeDisplay
+          locked={true}
+          time={agendaTime}
+          style={{ color: colors.bland, cursor: "not-allowed" }}
+          size={35}
+          onClick={() =>
+            alert(
+              `Time values are sent in child topics. In order to set the time for this topic you must remove the time associated with each child topic.`
+            )
+          }
+        />
+      </Container>
+    );
+  }
 
-    if (!!parentTime) {
-      return <Container {...props}>{parentTime}</Container>;
-    }
-
-    return null;
+  if (!_time && !!parentTime) {
+    return <Container {...props}>{parentTime}</Container>;
   }
 
   if (editing) {
@@ -119,7 +117,7 @@ export function TimeInput({
         <input
           ref={_input}
           type="number"
-          value={_time}
+          value={_time || 0}
           min={1}
           max={1 * 60 * 24}
           onChange={(e) => setTime(e.target.value)}
@@ -131,9 +129,18 @@ export function TimeInput({
     );
   }
 
+  if (_time) {
+    return (
+      <Container {...props} onClick={toggleEditing}>
+        <TimeDisplay time={_time} size={35} />
+      </Container>
+    );
+  }
+
   return (
-    <Container {...props} onClick={toggleEditing}>
-      <TimeDisplay time={_time} size={35} />
+    <Container onClick={toggleEditing}>
+      <Timer size={35} />
+      <span>No Time</span>
     </Container>
   );
 }
