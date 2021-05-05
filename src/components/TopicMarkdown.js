@@ -8,7 +8,7 @@ import debounce from "debounce";
 
 const saveMarkdown = debounce((path, content, onChange) => {
   onChange(path, content);
-}, 500);
+}, 1000);
 
 export default function TopicMarkdown({ content, title, onChange = (f) => f }) {
   const [tabIndex, setTabIndex] = useState(0);

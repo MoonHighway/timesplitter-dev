@@ -6,6 +6,7 @@ import {
   toTree,
   fromTree,
   replenishExpanded,
+  urlFriendly,
 } from "./lib";
 
 export const useContent = () => {
@@ -126,12 +127,93 @@ export function useTreeContent() {
       .catch(console.error);
   };
 
+  const removeTopic = (topicName) => {
+    fetch(`/content/${urlFriendly(topicName)}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(
+            `Something went wrong while removing ${topicName} to timesplitter.`
+          );
+        }
+        setContent(toTree(content));
+      })
+      .catch(console.error);
+  };
+
+  const renameTopic = (oldName, newName) => {
+    fetch(`/content/rename/${urlFriendly(oldName)}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newName }),
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(
+            `Something went wrong while renaming "${oldName}" to "${newName}".`
+          );
+        }
+        setContent(toTree(content));
+      })
+      .catch(console.error);
+  };
+
+  const updateTopicMeta = (oldTopic, newTopic) => {
+    fetch(`/content/topic-meta/${urlFriendly(oldTopic.title)}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newTopic }),
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(
+            `Something went wrong while updating "${oldTopic.name}"`
+          );
+        }
+        setContent(toTree(content));
+      })
+      .catch(console.error);
+  };
+
+  const saveMarkdown = (fileName, fileContents) => {
+    fetch(`/content/markdown`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ fileName, fileContents }),
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(`Something went wrong while saving ${fileName}.`);
+        }
+        setContent(toTree(content));
+      })
+      .catch(console.error);
+  };
+
   return {
     title,
     children,
     data,
     sortTopics,
     addTopic,
+    removeTopic,
+    renameTopic,
+    updateTopicMeta,
+    saveMarkdown,
     selectedNode,
     setSelectedNode,
   };

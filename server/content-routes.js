@@ -93,6 +93,50 @@ module.exports = function (rootFolder) {
     }
   });
 
+  //
+  // TODO: Code Update Topic
+  //
+
+  router.put("/topic-meta/:topicName", async (req, res) => {
+    const { topicName } = req.params;
+    const { newTopic } = req.body;
+    console.log(`UPDATE - ${topicName}`);
+    console.log(newTopic);
+    res.send(content);
+  });
+
+  //
+  // TODO: Code Delete Topic
+  //
+
+  router.delete("/:topicName", async (req, res) => {
+    const { topicName } = req.params;
+    console.log(`DELETE - ${topicName}`);
+    res.send(content);
+  });
+
+  //
+  // TODO: Code Rename Topic
+  //
+
+  router.put("/rename/:topicName", async (req, res) => {
+    const { topicName } = req.params;
+    const { newName } = req.body;
+    console.log(`RENAME - "${topicName}" to "${newName}"`);
+    res.send(content);
+  });
+
+  //
+  // TODO: Code Save Markdown Contents
+  //
+
+  router.put("/markdown", async (req, res) => {
+    const { fileName, fileContents } = req.body;
+    console.log(`SAVE - "${fileName}"`);
+    console.log(fileContents);
+    res.send(content);
+  });
+
   router.get("/agenda/:fullPath*", async (req, res) => {
     const [, , ...p] = req.url.split("/");
     const filePath = path.join(rootFolder, p.join("/"));
