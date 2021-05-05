@@ -123,7 +123,6 @@ export function useTreeContent() {
         }
         setContent(toTree(content));
       })
-      .then(setContent)
       .catch(console.error);
   };
 
