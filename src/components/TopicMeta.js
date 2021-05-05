@@ -10,9 +10,21 @@ import {
   Lock,
 } from "../lib";
 import { fonts, colors } from "../theme";
+import deepEqual from "deep-equal";
 import styled from "styled-components";
+import debounce from "debounce";
 
-export default function TopicMeta({ content, node }) {
+const saveTitle = debounce((oldTitle, newTitle, onRename = (f) => f) => {
+  if (oldTitle !== newTitle) onRename(oldTitle, newTitle);
+}, 2000);
+
+export default function TopicMeta({
+  content,
+  node,
+  onChange = (f) => f,
+  onRename = (f) => f,
+  onRemove = (f) => f,
+}) {
   const [title, setTitle] = useState(node.title);
   const [type, setType] = useState(node.type);
   const [length, setLength] = useState(node.length || 0);
@@ -27,6 +39,35 @@ export default function TopicMeta({ content, node }) {
   useEffect(() => setDifficulty(node.difficulty), [node.difficulty]);
   useEffect(() => setLength(node.length), [node.length]);
 
+  useEffect(() => {
+    const newNode = {
+      ...node,
+    };
+    if (node.hasOwnProperty("type") || type) newNode.type = type;
+    if (node.hasOwnProperty("required") || required)
+      newNode.required = required;
+    if (!!length) newNode.length = length;
+    if (!!difficulty) newNode.difficulty = difficulty;
+    if (!!locked) newNode.locked = locked;
+    if (!deepEqual(newNode, node)) onChange(node, newNode);
+  }, [type, difficulty, required, length, locked]);
+
+  useEffect(() => {
+    if (!title) return;
+    if (node.title !== title) saveTitle(node.title, title, onRename);
+  }, [title]);
+
+  const removeTopic = () => {
+    if (node.children && node.children.length)
+      return alert(`Remove ${title}'s ${node.children.length} children first`);
+    if (
+      window.confirm(
+        `Are you sure you want to remove "${title}" and all of it's content from this course. This action cannot be undone.`
+      )
+    )
+      onRemove(node.title);
+  };
+
   return (
     <Container>
       <Row>
@@ -35,8 +76,7 @@ export default function TopicMeta({ content, node }) {
           onChange={(e) => setTitle(e.target.value)}
           onFocus={(e) => e.target.select()}
         />
-        <button>[SAVE] Save</button>
-        <button>[DELETE] Save</button>
+        <button onClick={removeTopic}>[DELETE] Save</button>
       </Row>
       <Row>
         <Row style={{ width: "100%" }}>
@@ -61,7 +101,7 @@ export default function TopicMeta({ content, node }) {
               topicTime={length}
               agendaTime={totalTime(node)}
               parentTime={parentTime(content, node.title)}
-              onChange={setLength}
+              onChange={(length) => setLength(parseInt(length))}
             />
             {length && (
               <Checkbox
@@ -79,7 +119,6 @@ export default function TopicMeta({ content, node }) {
             )}
           </Row>
         </Row>
-        <button>[OPEN] Timesplitter</button>
       </Row>
     </Container>
   );

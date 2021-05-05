@@ -41,10 +41,16 @@ export default function App() {
               <TopicMeta
                 content={{ title, agenda: data }}
                 node={selectedNode}
+                onRemove={(name) => console.log(`Remove ${name}`)}
+                onRename={(oldName, newName) => console.log(oldName, newName)}
+                onChange={(oldTopic, newTopic) =>
+                  console.log(oldTopic, newTopic)
+                }
               />
               <TopicMarkdown
                 title={selectedNode.title}
                 content={{ title, agenda: data }}
+                onChange={(file, content) => console.log(file, content)}
               />
             </>
           ) : (

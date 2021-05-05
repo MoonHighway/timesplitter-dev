@@ -4,13 +4,29 @@ import { useContentFile } from "../hooks";
 import { getTopicPath, urlFriendly } from "../lib";
 import { fonts } from "../theme";
 import styled from "styled-components";
+import debounce from "debounce";
 
-export default function TopicMarkdown({ content, title }) {
+const saveMarkdown = debounce((path, content, onChange) => {
+  onChange(path, content);
+}, 500);
+
+export default function TopicMarkdown({ content, title, onChange = (f) => f }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [path, setPath] = useState(
     getTopicPath(content, title).replace(urlFriendly(content.title), "agenda")
   );
   const md = useContentFile(path);
+  const [_md, setMD] = useState(md);
+
+  const updateMarkdown = (e) => {
+    setMD(e.target.value);
+    saveMarkdown(`${path}.md`, e.target.value, onChange);
+  };
+
+  useEffect(() => {
+    if (!md) return;
+    setMD(md);
+  }, [md]);
 
   useEffect(() => {
     if (!title) return;
@@ -27,7 +43,7 @@ export default function TopicMarkdown({ content, title }) {
     <Container>
       <Tabs activeTabIndex={tabIndex}>
         <Tab tabName="Presenter Notes" selectTab={setTabIndex}>
-          <textarea value={md} readOnly={true} />
+          <textarea value={_md} onChange={updateMarkdown} />
         </Tab>
         <Tab tabName="Preview" selectTab={setTabIndex}>
           Preview
