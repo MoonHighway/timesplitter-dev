@@ -126,10 +126,6 @@ module.exports = function (rootFolder) {
     res.send(content);
   });
 
-  //
-  // TODO: Code Save Markdown Contents
-  //
-
   router.put("/markdown", async (req, res) => {
     const { fileName, fileContents } = req.body;
     try {

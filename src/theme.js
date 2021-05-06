@@ -1,8 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import ynk from "./fonts/YanoneKaffeesatz-Regular.ttf";
-import exo from "./fonts/Exo-Regular.ttf";
-import pts from "./fonts/PontanoSans-Regular.ttf";
-import grace from "./fonts/CoveredByYourGrace-Regular.ttf";
 
 export const fonts = {
   title: "Yanone Kaffeesatz",
@@ -53,23 +49,5 @@ export const GlobalStyle = createGlobalStyle`
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     overflow: clip;
-  }
-
-  @font-face {
-    font-family: "Yanone Kaffeesatz";
-    src: local('CoveredByYourGrace'), url(${ynk}) format('truetype');
-  }
-  @font-face {
-    font-family: "Exo";
-    src: local('CoveredByYourGrace'), url(${exo}) format('truetype');
-  }
-  @font-face {
-    font-family: "Pontano Sans";
-    src: local('CoveredByYourGrace'), url(${pts}) format('truetype');
-  }
-  @font-face {
-    font-family: 'CoveredByYourGrace';
-    font-weight: 900;
-    src: local('CoveredByYourGrace'), url(${grace}) format('truetype');
   }
 `;
