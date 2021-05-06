@@ -193,15 +193,7 @@ export function useTreeContent() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ fileName, fileContents }),
-    })
-      .then(toJSON)
-      .then((content) => {
-        if (!content.title) {
-          throw new Error(`Something went wrong while saving ${fileName}.`);
-        }
-        setContent(toTree(content));
-      })
-      .catch(console.error);
+    }).catch(console.error);
   };
 
   return {

@@ -132,9 +132,14 @@ module.exports = function (rootFolder) {
 
   router.put("/markdown", async (req, res) => {
     const { fileName, fileContents } = req.body;
-    console.log(`SAVE - "${fileName}"`);
-    console.log(fileContents);
-    res.send(content);
+    try {
+      const target = path.join(rootFolder, fileName.replace("agenda/", ""));
+      console.log(target);
+      fs.writeFileSync(target, fileContents);
+      res.status(200).send(fileContents);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   });
 
   router.get("/agenda/:fullPath*", async (req, res) => {
