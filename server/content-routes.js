@@ -108,8 +108,9 @@ module.exports = function (rootFolder) {
   router.delete("/:topicName", async (req, res) => {
     try {
       const { topicName } = req.params;
-      content = removeTopic(topicName);
-      res.send(content);
+      content = removeTopic(content, topicName);
+      treeToFiles(content, rootFolder);
+      await saveAndSendContent(res, content, rootFolder);
     } catch (error) {
       console.error(error);
       res.status(500).json(error);
