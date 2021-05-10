@@ -16,7 +16,7 @@ import debounce from "debounce";
 
 const saveTitle = debounce((oldTitle, newTitle, onRename = (f) => f) => {
   if (oldTitle !== newTitle) onRename(oldTitle, newTitle);
-}, 2000);
+}, 500);
 
 export default function TopicMeta({
   content,
