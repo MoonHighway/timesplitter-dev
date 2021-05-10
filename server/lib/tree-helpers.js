@@ -173,6 +173,24 @@ function removeTopic(content, topicTitle) {
   return content;
 }
 
+function renameTopic(content, oldName, newName) {
+  if (urlFriendly(content.title) === oldName) {
+    return {
+      ...content,
+      title: newName,
+    };
+  }
+
+  if (content.agenda) {
+    return {
+      ...content,
+      agenda: content.agenda.map((t) => renameTopic(t, oldName, newName)),
+    };
+  }
+
+  return content;
+}
+
 module.exports = {
   topicTitleIsUnique,
   saveAndSendContent,
@@ -182,4 +200,5 @@ module.exports = {
   removeExpanded,
   replaceTopic,
   removeTopic,
+  renameTopic,
 };

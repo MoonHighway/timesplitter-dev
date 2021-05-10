@@ -12,6 +12,7 @@ const {
   removeExpanded,
   replaceTopic,
   removeTopic,
+  renameTopic,
 } = require("./lib");
 const deepEqual = require("deep-equal");
 
@@ -117,15 +118,17 @@ module.exports = function (rootFolder) {
     }
   });
 
-  //
-  // TODO: Code Rename Topic
-  //
-
   router.put("/rename/:topicName", async (req, res) => {
-    const { topicName } = req.params;
-    const { newName } = req.body;
-    console.log(`RENAME - "${topicName}" to "${newName}"`);
-    res.send(content);
+    try {
+      const { topicName } = req.params;
+      const { newName } = req.body;
+      content = renameTopic(content, topicName, newName);
+      treeToFiles(content, rootFolder);
+      await saveAndSendContent(res, content, rootFolder);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
   });
 
   router.put("/markdown", async (req, res) => {
