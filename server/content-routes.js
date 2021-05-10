@@ -11,6 +11,7 @@ const {
   treeToFiles,
   removeExpanded,
   replaceTopic,
+  removeTopic,
 } = require("./lib");
 const deepEqual = require("deep-equal");
 
@@ -104,14 +105,15 @@ module.exports = function (rootFolder) {
     }
   });
 
-  //
-  // TODO: Code Delete Topic
-  //
-
   router.delete("/:topicName", async (req, res) => {
-    const { topicName } = req.params;
-    console.log(`DELETE - ${topicName}`);
-    res.send(content);
+    try {
+      const { topicName } = req.params;
+      content = removeTopic(topicName);
+      res.send(content);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
   });
 
   //

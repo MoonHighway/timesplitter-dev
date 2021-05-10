@@ -60,4 +60,5 @@ function treeToFiles(tree, root) {
 
 module.exports = {
   treeToFiles,
+  urlFriendly,
 };
