@@ -10,7 +10,7 @@ const {
   loadContent,
   treeToFiles,
   removeExpanded,
-  toTree,
+  replaceTopic,
 } = require("./lib");
 const deepEqual = require("deep-equal");
 
@@ -93,16 +93,15 @@ module.exports = function (rootFolder) {
     }
   });
 
-  //
-  // TODO: Code Update Topic
-  //
-
   router.put("/topic-meta/:topicName", async (req, res) => {
-    const { topicName } = req.params;
-    const { newTopic } = req.body;
-    console.log(`UPDATE - ${topicName}`);
-    console.log(newTopic);
-    res.send(content);
+    try {
+      const { newTopic } = req.body;
+      content = replaceTopic(content, newTopic);
+      await saveAndSendContent(res, content, rootFolder);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
   });
 
   //

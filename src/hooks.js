@@ -172,7 +172,7 @@ export function useTreeContent() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ newTopic }),
+      body: JSON.stringify({ newTopic: fromTree(newTopic) }),
     })
       .then(toJSON)
       .then((content) => {

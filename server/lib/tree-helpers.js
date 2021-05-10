@@ -163,4 +163,5 @@ module.exports = {
   loadContent,
   addTopicToParent,
   removeExpanded,
+  replaceTopic,
 };
