@@ -1,7 +1,7 @@
 const { promisify } = require("util");
 const fs = require("fs");
 const path = require("path");
-
+const { urlFriendly } = require("./tree-to-files");
 const writeFile = promisify(fs.writeFile);
 
 const topicTitlesOnly = (topic) => topic.title;
@@ -156,6 +156,41 @@ function loadContent(rootFolder) {
   return content;
 }
 
+function removeTopic(content, topicTitle) {
+  if (urlFriendly(content.title) === urlFriendly(topicTitle)) {
+    return null;
+  }
+
+  if (content.agenda) {
+    return {
+      ...content,
+      agenda: content.agenda
+        .map((t) => removeTopic(t, topicTitle))
+        .filter((t) => t),
+    };
+  }
+
+  return content;
+}
+
+function renameTopic(content, oldName, newName) {
+  if (urlFriendly(content.title) === oldName) {
+    return {
+      ...content,
+      title: newName,
+    };
+  }
+
+  if (content.agenda) {
+    return {
+      ...content,
+      agenda: content.agenda.map((t) => renameTopic(t, oldName, newName)),
+    };
+  }
+
+  return content;
+}
+
 module.exports = {
   topicTitleIsUnique,
   saveAndSendContent,
@@ -163,4 +198,7 @@ module.exports = {
   loadContent,
   addTopicToParent,
   removeExpanded,
+  replaceTopic,
+  removeTopic,
+  renameTopic,
 };

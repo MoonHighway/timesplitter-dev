@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Yanone Kaffeesatz";
+  src: local("Yanone Kaffeesatz"),
+    url(/fonts/YanoneKaffeesatz-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Exo";
+  src: local("Exo"), url(/fonts/Exo-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Pontano Sans";
+  src: local("Pontano Sans"),
+    url(/fonts/PontanoSans-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "CoveredByYourGrace";
+  font-weight: 900;
+  src: local("CoveredByYourGrace"),
+    url(/fonts/CoveredByYourGrace-Regular.ttf) format("truetype");
+}

@@ -10,7 +10,9 @@ const {
   loadContent,
   treeToFiles,
   removeExpanded,
-  toTree,
+  replaceTopic,
+  removeTopic,
+  renameTopic,
 } = require("./lib");
 const deepEqual = require("deep-equal");
 
@@ -93,11 +95,63 @@ module.exports = function (rootFolder) {
     }
   });
 
+  router.put("/topic-meta/:topicName", async (req, res) => {
+    try {
+      const { newTopic } = req.body;
+      content = replaceTopic(content, newTopic);
+      await saveAndSendContent(res, content, rootFolder);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
+  });
+
+  router.delete("/:topicName", async (req, res) => {
+    try {
+      const { topicName } = req.params;
+      content = removeTopic(content, topicName);
+      treeToFiles(content, rootFolder);
+      await saveAndSendContent(res, content, rootFolder);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
+  });
+
+  router.put("/rename/:topicName", async (req, res) => {
+    try {
+      const { topicName } = req.params;
+      const { newName } = req.body;
+      content = renameTopic(content, topicName, newName);
+      treeToFiles(content, rootFolder);
+      await saveAndSendContent(res, content, rootFolder);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
+  });
+
+  router.put("/markdown", async (req, res) => {
+    const { fileName, fileContents } = req.body;
+    try {
+      const target = path.join(rootFolder, fileName.replace("agenda/", ""));
+      console.log(target);
+      fs.writeFileSync(target, fileContents);
+      res.status(200).send(fileContents);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
   router.get("/agenda/:fullPath*", async (req, res) => {
     const [, , ...p] = req.url.split("/");
     const filePath = path.join(rootFolder, p.join("/"));
     try {
       const content = await readFile(`${filePath}.md`, "UTF-8");
+      if (!content) {
+        const [missingContentFile] = p.reverse();
+        return res.send(`# TODO: Add Content For ${missingContentFile}`);
+      }
       res.send(content);
     } catch (error) {
       res.status(500).send(error);

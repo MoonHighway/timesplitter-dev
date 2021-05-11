@@ -1,0 +1,148 @@
+{
+  "title": "Timesplitter Development Mode",
+  "children": [
+    {
+      "title": "Chapter One",
+      "type": "section",
+      "difficulty": "beginner",
+      "required": true,
+      "children": [
+        {
+          "title": "Course Welcome",
+          "length": 5,
+          "type": "slides",
+          "required": true
+        },
+        {
+          "title": "Course Details",
+          "type": "slides",
+          "length": 5,
+          "difficulty": "beginner",
+          "required": true
+        },
+        {
+          "title": "Course Hours",
+          "difficulty": "intermediate",
+          "type": "sample",
+          "children": [
+            {
+              "title": "am hours",
+              "difficulty": "beginner",
+              "type": "step",
+              "length": 15
+            },
+            {
+              "title": "pm hours",
+              "difficulty": "expert",
+              "type": "step",
+              "length": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter Two",
+      "type": "exercise",
+      "difficulty": "advanced",
+      "required": true,
+      "length": 10,
+      "children": [
+        {
+          "title": "dimp one",
+          "difficulty": "intermediate",
+          "type": "step",
+          "required": true
+        },
+        {
+          "title": "dimp two",
+          "difficulty": "advanced",
+          "type": "step",
+          "required": false
+        },
+        {
+          "title": "dimp three",
+          "difficulty": "expert",
+          "type": "step",
+          "required": false
+        }
+      ]
+    },
+    {
+      "title": "Chapter Three",
+      "difficulty": "advanced",
+      "type": "section",
+      "required": true,
+      "children": [
+        {
+          "title": "Threeview",
+          "difficulty": "beginner",
+          "type": "sample",
+          "length": 5,
+          "required": true,
+          "children": []
+        },
+        {
+          "title": "Massive Topic",
+          "difficulty": "intermediate",
+          "type": "sample",
+          "required": true,
+          "length": 5,
+          "children": []
+        },
+        {
+          "title": "Heart Heart",
+          "difficulty": "expert",
+          "type": "exercise",
+          "required": true,
+          "length": 20,
+          "children": [
+            {
+              "title": "first heart",
+              "difficulty": "advanced",
+              "type": "step",
+              "required": true,
+              "children": []
+            },
+            {
+              "title": "second heart",
+              "difficulty": "advanced",
+              "type": "step",
+
+              "children": []
+            }
+          ]
+        },
+        {
+          "title": "Standard",
+          "difficulty": "beginner",
+          "type": "lab",
+          "length": 10,
+
+          "children": [
+            {
+              "title": "big lab boy",
+              "difficulty": "beginner",
+              "type": "step"
+            },
+            {
+              "title": "big ole lab",
+              "difficulty": "expert",
+              "type": "step"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Course Lab",
+      "difficulty": "expert",
+      "length": 2,
+      "type": "lab",
+      "children": [
+        { "title": "final step one", "type": "step" },
+        { "title": "final step two", "type": "step" }
+      ]
+    }
+  ]
+}

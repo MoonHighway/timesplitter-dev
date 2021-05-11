@@ -6,6 +6,7 @@ import {
   toTree,
   fromTree,
   replenishExpanded,
+  urlFriendly,
 } from "./lib";
 
 export const useContent = () => {
@@ -48,13 +49,16 @@ export const useContent = () => {
 
 export const useContentFile = (path) => {
   const [content, setContent] = useState();
-  const url = `/content${path}`;
   useEffect(() => {
-    fetch(url)
+    if (!path) {
+      return;
+    }
+    fetch(`/content/${path}`)
       .then(toText)
       .then(setContent)
-      .catch(throwIt(`An error occurred while loading ${url}`));
-  }, [url]);
+      .catch(throwIt(`An error occurred while loading ${path}`));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [path]);
   return content;
 };
 
@@ -65,17 +69,18 @@ export function useTreeContent() {
     return toTree(content);
   }, [content]);
   const [data, setTree] = useState(children);
-  const [selectedTitle, setSelectedTitle] = useState(
-    localStorage.getItem(`@ts-selected-title`)
+  const [selectedNode, setSelectedNode] = useState(
+    localStorage.getItem(`@ts-selected-node`) &&
+      JSON.parse(localStorage.getItem(`@ts-selected-node`))
   );
 
   useEffect(() => {
-    if (!selectedTitle) {
-      localStorage.removeItem(`@ts-selected-title`);
+    if (!selectedNode) {
+      localStorage.removeItem(`@ts-selected-node`);
       return;
     }
-    localStorage.setItem(`@ts-selected-title`, selectedTitle);
-  }, [selectedTitle]);
+    localStorage.setItem(`@ts-selected-node`, JSON.stringify(selectedNode));
+  }, [selectedNode]);
 
   useEffect(() => {
     if (!children.length) return;
@@ -119,8 +124,76 @@ export function useTreeContent() {
         }
         setContent(toTree(content));
       })
-      .then(setContent)
       .catch(console.error);
+  };
+
+  const removeTopic = (topicName) => {
+    fetch(`/content/${urlFriendly(topicName)}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(
+            `Something went wrong while removing ${topicName} to timesplitter.`
+          );
+        }
+        setContent(toTree(content));
+      })
+      .catch(console.error);
+  };
+
+  const renameTopic = (oldName, newName) => {
+    fetch(`/content/rename/${urlFriendly(oldName)}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newName }),
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(
+            `Something went wrong while renaming "${oldName}" to "${newName}".`
+          );
+        }
+        setContent(toTree(content));
+      })
+      .catch(console.error);
+  };
+
+  const updateTopicMeta = (oldTopic, newTopic) => {
+    fetch(`/content/topic-meta/${urlFriendly(oldTopic.title)}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newTopic: fromTree(newTopic) }),
+    })
+      .then(toJSON)
+      .then((content) => {
+        if (!content.title) {
+          throw new Error(
+            `Something went wrong while updating "${oldTopic.name}"`
+          );
+        }
+        setContent(toTree(content));
+      })
+      .catch(console.error);
+  };
+
+  const saveMarkdown = (fileName, fileContents) => {
+    fetch(`/content/markdown`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ fileName, fileContents }),
+    }).catch(console.error);
   };
 
   return {
@@ -129,8 +202,12 @@ export function useTreeContent() {
     data,
     sortTopics,
     addTopic,
-    selectedTitle,
-    setSelectedTitle,
+    removeTopic,
+    renameTopic,
+    updateTopicMeta,
+    saveMarkdown,
+    selectedNode,
+    setSelectedNode,
   };
 }
 
@@ -145,3 +222,15 @@ export function useInput(initVal) {
     onChange,
   };
 }
+
+export const useTopicTypeCount = (topics = []) =>
+  useMemo(() => {
+    // if (!topics || !topics.length) return;
+    return {
+      slides: 2,
+      samples: 15,
+      labSteps: 10,
+      exerciseSteps: 7,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topics]);
