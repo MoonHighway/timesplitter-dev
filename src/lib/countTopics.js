@@ -5,16 +5,15 @@ export const countByType = (
   count = {
     samples: 0,
     slides: 0,
-    labSteps: 0,
-    exerciseSteps: 0,
+    labs: 0,
+    exercises: 0,
   }
 ) => {
   if (topic.type === "sample") count.samples = count.samples + 1;
   if (topic.type === "slides") count.slides = count.slides + 1;
-  if (topic.type === "lab")
-    count.labSteps = count.labSteps + topic.children.length;
+  if (topic.type === "lab") count.labs = count.labs + topic.children.length;
   if (topic.type === "exercise")
-    count.exerciseSteps = count.exerciseSteps + topic.children.length;
+    count.exercises = count.exercises + topic.children.length;
   if (topic.children) {
     return topic.children.reduce((total, t) => countByType(t, total), count);
   }

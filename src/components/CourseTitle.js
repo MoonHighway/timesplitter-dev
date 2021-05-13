@@ -1,12 +1,14 @@
 import { TimeDisplay, totalTime, TopicIcon } from "../lib";
 import { colors, fonts } from "../theme";
-import { useTopicTypeCount } from "../hooks";
+import { useTopicCounts } from "../hooks";
 import styled from "styled-components";
 import { PieChart } from "react-minimal-pie-chart";
 
-export default function CourseTitle({ title, topics = [] }) {
-  const { slides, samples, labSteps, exerciseSteps } = useTopicTypeCount();
+const Hide = ({ when = true, children }) => !when && children;
 
+export default function CourseTitle({ title, topics = [] }) {
+  const { selectedCount, setSelectedCount, slides, samples, labs, exercises } =
+    useTopicCounts({ title, children: topics });
   return (
     <Container>
       <Row>
@@ -18,14 +20,26 @@ export default function CourseTitle({ title, topics = [] }) {
               size={25}
               time={totalTime({ children: topics })}
             />
-            <TopicIcon type="slides" fill={colors.slides} />
-            <span>{slides} presentations</span>
-            <TopicIcon type="samples" fill={colors.samples} />
-            <span>{samples} samples</span>
-            <TopicIcon type="lab" fill={colors.lab} />
-            <span>{labSteps} lab steps</span>
-            <TopicIcon type="exercise" fill={colors.exercise} />
-            <span>{exerciseSteps} exercise steps</span>
+
+            <Hide when={!slides}>
+              <TopicIcon type="slides" fill={colors.slides} />
+              <span>{slides} presentations</span>
+            </Hide>
+
+            <Hide when={!samples}>
+              <TopicIcon type="samples" fill={colors.samples} />
+              <span>{samples} samples</span>
+            </Hide>
+
+            <Hide when={!labs}>
+              <TopicIcon type="lab" fill={colors.lab} />
+              <span>{labs} lab steps</span>
+            </Hide>
+
+            <Hide when={!exercises}>
+              <TopicIcon type="exercise" fill={colors.exercise} />
+              <span>{exercises} exercise steps</span>
+            </Hide>
           </TypeRow>
         </Column>
         <PieChart
@@ -35,10 +49,10 @@ export default function CourseTitle({ title, topics = [] }) {
           animate={true}
           data={[
             { title: "Samples", value: samples, color: colors.sample },
-            { title: "Lab Steps", value: labSteps, color: colors.lab },
+            { title: "Lab Steps", value: labs, color: colors.lab },
             {
               title: "Exercise Steps",
-              value: exerciseSteps,
+              value: exercises,
               color: colors.exercise,
             },
             {
@@ -49,8 +63,18 @@ export default function CourseTitle({ title, topics = [] }) {
           ]}
         />
         <InfoChoice>
-          <p className="selected">topics</p>
-          <p>time</p>
+          <p
+            className={selectedCount === "topics" ? "selected" : ""}
+            onClick={() => setSelectedCount("topics")}
+          >
+            topics
+          </p>
+          <p
+            className={selectedCount === "time" ? "selected" : ""}
+            onClick={() => setSelectedCount("time")}
+          >
+            time
+          </p>
           <p>difficulty</p>
           <p>required</p>
           <p>%</p>
@@ -82,6 +106,10 @@ const Container = styled.div`
 
 const InfoChoice = styled.div`
   margin-left: 30px;
+
+  p {
+    cursor: pointer;
+  }
 
   p.selected {
     position: relative;

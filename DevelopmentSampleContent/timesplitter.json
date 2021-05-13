@@ -8,38 +8,88 @@
       "required": true,
       "agenda": [
         {
-          "title": "Course Welcome",
-          "length": 5,
-          "type": "slides",
-          "required": true
-        },
-        {
           "title": "Course Details",
           "type": "sample",
           "length": 5,
           "difficulty": "beginner",
           "required": true
+        },
+        {
+          "title": "slide deck",
+          "difficulty": "beginner",
+          "type": "slides",
+          "required": true,
+          "agenda": []
         }
       ]
     },
     {
       "title": "Chapter Two",
-      "type": "section",
+      "type": "exercise",
       "difficulty": "advanced",
       "required": true,
       "length": 10,
       "agenda": [
         {
-          "title": "sample one",
-          "difficulty": "intermediate"
+          "title": "first step in e",
+          "difficulty": "beginner",
+          "type": "step",
+          "required": true,
+          "agenda": []
+        }
+      ]
+    },
+    {
+      "title": "Chapter Three",
+      "difficulty": "beginner",
+      "type": "section",
+      "required": true,
+      "agenda": [
+        {
+          "title": "example",
+          "difficulty": "beginner",
+          "type": "sample",
+          "required": true,
+          "agenda": []
         },
         {
-          "title": "sample two",
-          "difficulty": "advanced"
+          "title": "exanoke",
+          "difficulty": "beginner",
+          "type": "sample",
+          "required": true,
+          "agenda": []
         },
         {
-          "title": "sample three",
-          "difficulty": "expert"
+          "title": "trt ut",
+          "difficulty": "beginner",
+          "type": "lab",
+          "required": true,
+          "agenda": [
+            {
+              "title": "first",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": true,
+              "length": 3,
+              "agenda": []
+            },
+            {
+              "title": "secibd",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": true,
+              "length": 6,
+              "agenda": []
+            },
+            {
+              "title": "third",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": true,
+              "length": 9,
+              "agenda": []
+            }
+          ]
         }
       ]
     }
