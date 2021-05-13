@@ -1,1 +1,1 @@
-Example Sample
+Here are notes for Course Details Section

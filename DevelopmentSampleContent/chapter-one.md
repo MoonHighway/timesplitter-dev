@@ -1,3 +1,3 @@
-# Chapter One
+Chapter One Overview Page
 
-This is the major chapter
+This is where notes about what chapter one covers will appear.
