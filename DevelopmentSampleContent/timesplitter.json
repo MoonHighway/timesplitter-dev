@@ -8,40 +8,84 @@
       "required": true,
       "agenda": [
         {
-          "title": "Course Details",
-          "type": "sample",
-          "length": 5,
-          "difficulty": "beginner",
-          "required": true
-        },
-        {
           "title": "slide deck",
           "difficulty": "beginner",
           "type": "slides",
           "required": true,
           "agenda": []
+        },
+        {
+          "title": "Course Details",
+          "type": "sample",
+          "length": 5,
+          "difficulty": "beginner",
+          "required": true
         }
       ]
     },
     {
       "title": "Chapter Two",
-      "type": "exercise",
-      "difficulty": "advanced",
+      "difficulty": "intermediate",
+      "type": "section",
       "required": true,
-      "length": 10,
       "agenda": [
         {
-          "title": "first step in e",
-          "difficulty": "beginner",
-          "type": "step",
+          "title": "Learning",
+          "difficulty": "intermediate",
+          "type": "sample",
           "required": true,
           "agenda": []
+        },
+        {
+          "title": "writing",
+          "difficulty": "advanced",
+          "type": "sample",
+          "required": false,
+          "length": 6,
+          "agenda": []
+        },
+        {
+          "title": "Build Something",
+          "difficulty": "expert",
+          "type": "exercise",
+          "required": true,
+          "length": 6,
+          "agenda": [
+            {
+              "title": "Setup Environment",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": true,
+              "agenda": []
+            },
+            {
+              "title": "Write Test",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": true,
+              "agenda": []
+            },
+            {
+              "title": "Write Function",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": false,
+              "agenda": []
+            },
+            {
+              "title": "Incorporate UI",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": false,
+              "agenda": []
+            }
+          ]
         }
       ]
     },
     {
       "title": "Chapter Three",
-      "difficulty": "beginner",
+      "difficulty": "advanced",
       "type": "section",
       "required": true,
       "agenda": [
@@ -53,40 +97,39 @@
           "agenda": []
         },
         {
-          "title": "exanoke",
-          "difficulty": "beginner",
+          "title": "live code",
+          "difficulty": "advanced",
           "type": "sample",
           "required": true,
           "agenda": []
         },
         {
-          "title": "trt ut",
-          "difficulty": "beginner",
+          "title": "Try it out",
+          "difficulty": "advanced",
           "type": "lab",
-          "required": true,
+          "required": false,
           "agenda": [
             {
-              "title": "first",
-              "difficulty": "beginner",
+              "title": "first step",
+              "difficulty": "advanced",
               "type": "step",
-              "required": true,
+              "required": false,
               "length": 3,
               "agenda": []
             },
             {
-              "title": "secibd",
+              "title": "second step",
               "difficulty": "beginner",
               "type": "step",
-              "required": true,
-              "length": 6,
+              "required": false,
+              "length": 5,
               "agenda": []
             },
             {
-              "title": "third",
-              "difficulty": "beginner",
+              "title": "Third Step",
+              "difficulty": "expert",
               "type": "step",
-              "required": true,
-              "length": 9,
+              "required": false,
               "agenda": []
             }
           ]

@@ -27,7 +27,7 @@ export const TopicIcon = ({ type, ...props }) =>
   ) : type === "meta" ? (
     <Info {...props} />
   ) : (
-    <BsBraces {...props} />
+    <CodeBlocks {...props} />
   );
 
 const Code = styled.p`
@@ -47,9 +47,17 @@ export const Slides = ({ color = "#898989", size = 25, ...props }) => (
   <RiSlideshowFill size={size} color={color} {...props} />
 );
 
-export const Sample = ({ color = "#898989", size = 25, ...props }) => (
-  <GrWorkshop size={size} color={color} {...props} />
+export const Sample = ({ size = 25, stroke = "#898989", ...props }) => (
+  <StrokeWorkAround stroke={stroke}>
+    <GrWorkshop className="sample-icon" size={size} {...props} />
+  </StrokeWorkAround>
 );
+
+const StrokeWorkAround = styled.div`
+  svg.sample-icon path {
+    stroke: ${(props) => props.stroke};
+  }
+`;
 
 export const Lab = ({ color = "#898989", size = 25, ...props }) => (
   <ImLab size={size} color={color} {...props} />
@@ -57,6 +65,10 @@ export const Lab = ({ color = "#898989", size = 25, ...props }) => (
 
 export const Exercise = ({ color = "#898989", size = 25, ...props }) => (
   <FaCode size={size} color={color} {...props} />
+);
+
+export const CodeBlocks = ({ color = "#898989", size = 25, ...props }) => (
+  <BsBraces size={size} color={color} {...props} />
 );
 
 export const CourseLab = ({ color = "#898989", size = 25, ...props }) => (

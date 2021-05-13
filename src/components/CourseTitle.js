@@ -27,7 +27,7 @@ export default function CourseTitle({ title, topics = [] }) {
             </Hide>
 
             <Hide when={!samples}>
-              <TopicIcon type="samples" fill={colors.samples} />
+              <TopicIcon type="sample" stroke={colors.sample} />
               <span>{samples} samples</span>
             </Hide>
 
