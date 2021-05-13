@@ -135,7 +135,6 @@ module.exports = function (rootFolder) {
     const { fileName, fileContents } = req.body;
     try {
       const target = path.join(rootFolder, fileName.replace("agenda/", ""));
-      console.log(target);
       fs.writeFileSync(target, fileContents);
       res.status(200).send(fileContents);
     } catch (error) {

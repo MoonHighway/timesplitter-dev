@@ -8,10 +8,12 @@
       "required": true,
       "agenda": [
         {
-          "title": "Course Welcome",
-          "length": 5,
+          "title": "slide deck",
+          "difficulty": "beginner",
           "type": "slides",
-          "required": true
+          "required": true,
+          "length": 5,
+          "agenda": []
         },
         {
           "title": "Course Details",
@@ -24,22 +26,114 @@
     },
     {
       "title": "Chapter Two",
+      "difficulty": "intermediate",
       "type": "section",
-      "difficulty": "advanced",
       "required": true,
-      "length": 10,
       "agenda": [
         {
-          "title": "sample one",
-          "difficulty": "intermediate"
+          "title": "Learning",
+          "difficulty": "intermediate",
+          "type": "sample",
+          "required": true,
+          "agenda": []
         },
         {
-          "title": "sample two",
-          "difficulty": "advanced"
+          "title": "writing",
+          "difficulty": "advanced",
+          "type": "sample",
+          "required": false,
+          "length": 6,
+          "agenda": []
         },
         {
-          "title": "sample three",
-          "difficulty": "expert"
+          "title": "Build Something",
+          "difficulty": "expert",
+          "type": "exercise",
+          "required": true,
+          "length": 6,
+          "agenda": [
+            {
+              "title": "Setup Environment",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": true,
+              "agenda": []
+            },
+            {
+              "title": "Write Test",
+              "difficulty": "intermediate",
+              "type": "step",
+              "required": true,
+              "agenda": []
+            },
+            {
+              "title": "Write Function",
+              "difficulty": "advanced",
+              "type": "step",
+              "required": false,
+              "agenda": []
+            },
+            {
+              "title": "Incorporate UI",
+              "difficulty": "expert",
+              "type": "step",
+              "required": false,
+              "agenda": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chapter Three",
+      "difficulty": "advanced",
+      "type": "section",
+      "required": true,
+      "agenda": [
+        {
+          "title": "example",
+          "difficulty": "beginner",
+          "type": "sample",
+          "required": true,
+          "agenda": []
+        },
+        {
+          "title": "live code",
+          "difficulty": "advanced",
+          "type": "sample",
+          "required": true,
+          "agenda": []
+        },
+        {
+          "title": "Try it out",
+          "difficulty": "advanced",
+          "type": "lab",
+          "required": false,
+          "agenda": [
+            {
+              "title": "first step",
+              "difficulty": "advanced",
+              "type": "step",
+              "required": true,
+              "length": 3,
+              "agenda": []
+            },
+            {
+              "title": "second step",
+              "difficulty": "beginner",
+              "type": "step",
+              "required": true,
+              "length": 5,
+              "agenda": []
+            },
+            {
+              "title": "Third Step",
+              "difficulty": "expert",
+              "type": "step",
+              "required": false,
+              "agenda": []
+            }
+          ]
         }
       ]
     }

@@ -11,8 +11,8 @@ it("countByType(topic)", () => {
   expect(result).toEqual({
     slides: 2,
     samples: 3,
-    labSteps: 4,
-    exerciseSteps: 5,
+    labs: 4,
+    exercises: 5,
   });
 });
 

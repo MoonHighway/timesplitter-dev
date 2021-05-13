@@ -26,4 +26,5 @@ yarn-error.log*
 
 __tests__/root/
 
-/DevelopmentSampleContent
+
+DevelopmentSampleContent/

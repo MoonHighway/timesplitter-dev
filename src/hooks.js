@@ -7,6 +7,8 @@ import {
   fromTree,
   replenishExpanded,
   urlFriendly,
+  countByType,
+  countByTime,
 } from "./lib";
 
 export const useContent = () => {
@@ -223,14 +225,19 @@ export function useInput(initVal) {
   };
 }
 
-export const useTopicTypeCount = (topics = []) =>
-  useMemo(() => {
-    // if (!topics || !topics.length) return;
-    return {
-      slides: 2,
-      samples: 15,
-      labSteps: 10,
-      exerciseSteps: 7,
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topics]);
+export const useTopicCounts = (content) => {
+  const [selectedCount, setSelectedCount] = useState("topics");
+  const {
+    slides = 0,
+    samples = 0,
+    labs = 0,
+    exercises = 0,
+  } = useMemo(() => {
+    if (selectedCount === "time") {
+      return countByTime(content);
+    }
+    return countByType(content);
+  }, [content, selectedCount]);
+
+  return { selectedCount, setSelectedCount, slides, samples, labs, exercises };
+};
