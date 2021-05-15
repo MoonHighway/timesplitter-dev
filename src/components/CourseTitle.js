@@ -33,7 +33,7 @@ export default function CourseTitle({ title, topics = [] }) {
               time={totalTime({ children: topics })}
             />
 
-            <Hide when={selectedCount === "difficulty"}>
+            <Hide when={selectedCount !== "topics"}>
               <Hide when={!slides}>
                 <TopicIcon type="slides" fill={colors.slides} />
                 <span>{slides} presentations</span>
@@ -55,7 +55,29 @@ export default function CourseTitle({ title, topics = [] }) {
               </Hide>
             </Hide>
 
-            <Hide when={selectedCount.match(/type|time/)}>
+            <Hide when={selectedCount !== "time"}>
+              <Hide when={!slides}>
+                <TopicIcon type="slides" fill={colors.slides} />
+                <span>{slides} mins</span>
+              </Hide>
+
+              <Hide when={!samples}>
+                <TopicIcon type="sample" stroke={colors.sample} />
+                <span>{samples} mins</span>
+              </Hide>
+
+              <Hide when={!labs}>
+                <TopicIcon type="lab" fill={colors.lab} />
+                <span>{labs} mins</span>
+              </Hide>
+
+              <Hide when={!exercises}>
+                <TopicIcon type="exercise" fill={colors.exercise} />
+                <span>{exercises} mins</span>
+              </Hide>
+            </Hide>
+
+            <Hide when={selectedCount !== "difficulty"}>
               <Hide when={!beginner}>
                 <Difficulty level="beginner" size={20} />
                 <span>{beginner} topics</span>
