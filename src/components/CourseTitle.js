@@ -1,4 +1,4 @@
-import { TimeDisplay, totalTime, TopicIcon } from "../lib";
+import { TimeDisplay, totalTime, TopicIcon, Difficulty } from "../lib";
 import { colors, fonts } from "../theme";
 import { useTopicCounts } from "../hooks";
 import styled from "styled-components";
@@ -7,8 +7,20 @@ import { PieChart } from "react-minimal-pie-chart";
 const Hide = ({ when = true, children }) => !when && children;
 
 export default function CourseTitle({ title, topics = [] }) {
-  const { selectedCount, setSelectedCount, slides, samples, labs, exercises } =
-    useTopicCounts({ title, children: topics });
+  const {
+    selectedCount,
+    setSelectedCount,
+    slides,
+    samples,
+    labs,
+    exercises,
+    noDifficulty,
+    beginner,
+    intermediate,
+    advanced,
+    expert,
+  } = useTopicCounts({ title, children: topics });
+
   return (
     <Container>
       <Row>
@@ -21,24 +33,74 @@ export default function CourseTitle({ title, topics = [] }) {
               time={totalTime({ children: topics })}
             />
 
-            <Hide when={!slides}>
-              <TopicIcon type="slides" fill={colors.slides} />
-              <span>{slides} presentations</span>
+            <Hide when={selectedCount !== "topics"}>
+              <Hide when={!slides}>
+                <TopicIcon type="slides" fill={colors.slides} />
+                <span>{slides} presentations</span>
+              </Hide>
+
+              <Hide when={!samples}>
+                <TopicIcon type="sample" stroke={colors.sample} />
+                <span>{samples} samples</span>
+              </Hide>
+
+              <Hide when={!labs}>
+                <TopicIcon type="lab" fill={colors.lab} />
+                <span>{labs} lab steps</span>
+              </Hide>
+
+              <Hide when={!exercises}>
+                <TopicIcon type="exercise" fill={colors.exercise} />
+                <span>{exercises} exercise steps</span>
+              </Hide>
             </Hide>
 
-            <Hide when={!samples}>
-              <TopicIcon type="sample" stroke={colors.sample} />
-              <span>{samples} samples</span>
+            <Hide when={selectedCount !== "time"}>
+              <Hide when={!slides}>
+                <TopicIcon type="slides" fill={colors.slides} />
+                <span>{slides} mins</span>
+              </Hide>
+
+              <Hide when={!samples}>
+                <TopicIcon type="sample" stroke={colors.sample} />
+                <span>{samples} mins</span>
+              </Hide>
+
+              <Hide when={!labs}>
+                <TopicIcon type="lab" fill={colors.lab} />
+                <span>{labs} mins</span>
+              </Hide>
+
+              <Hide when={!exercises}>
+                <TopicIcon type="exercise" fill={colors.exercise} />
+                <span>{exercises} mins</span>
+              </Hide>
             </Hide>
 
-            <Hide when={!labs}>
-              <TopicIcon type="lab" fill={colors.lab} />
-              <span>{labs} lab steps</span>
-            </Hide>
+            <Hide when={selectedCount !== "difficulty"}>
+              <Hide when={!beginner}>
+                <Difficulty level="beginner" size={20} />
+                <span>{beginner} topics</span>
+              </Hide>
 
-            <Hide when={!exercises}>
-              <TopicIcon type="exercise" fill={colors.exercise} />
-              <span>{exercises} exercise steps</span>
+              <Hide when={!intermediate}>
+                <Difficulty level="intermediate" size={20} />
+                <span>{intermediate} topics</span>
+              </Hide>
+
+              <Hide when={!advanced}>
+                <AdvancedContainer>
+                  <Difficulty level="advanced" size={20} />
+                </AdvancedContainer>
+                <span>{advanced} topics</span>
+              </Hide>
+
+              <Hide when={!expert}>
+                <ExpertContainer>
+                  <Difficulty level="expert" size={20} />
+                </ExpertContainer>
+                <span>{expert} expert topics</span>
+              </Hide>
             </Hide>
           </TypeRow>
         </Column>
@@ -75,7 +137,12 @@ export default function CourseTitle({ title, topics = [] }) {
           >
             time
           </p>
-          <p>difficulty</p>
+          <p
+            className={selectedCount === "difficulty" ? "selected" : ""}
+            onClick={() => setSelectedCount("difficulty")}
+          >
+            difficulty
+          </p>
           <p>required</p>
           <p>%</p>
         </InfoChoice>
@@ -142,4 +209,30 @@ const TypeRow = styled.div`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const AdvancedContainer = styled.div`
+  padding: 2px;
+  border-radius: 4px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+`;
+
+const ExpertContainer = styled.div`
+  padding: 2px;
+  border-radius: 4px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+
+  > div:first-child {
+    position: relative;
+    top: 2px;
+    left: 2px;
+  }
 `;

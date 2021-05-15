@@ -9,6 +9,7 @@ import {
   urlFriendly,
   countByType,
   countByTime,
+  countByDifficulty,
 } from "./lib";
 
 export const useContent = () => {
@@ -239,5 +240,29 @@ export const useTopicCounts = (content) => {
     return countByType(content);
   }, [content, selectedCount]);
 
-  return { selectedCount, setSelectedCount, slides, samples, labs, exercises };
+  const {
+    noDifficulty = 0,
+    beginner = 0,
+    intermediate = 0,
+    advanced = 0,
+    expert = 0,
+  } = useMemo(() => {
+    if (selectedCount !== "difficulty") return {};
+
+    return countByDifficulty(content);
+  }, [content, selectedCount]);
+
+  return {
+    selectedCount,
+    setSelectedCount,
+    slides,
+    samples,
+    labs,
+    exercises,
+    noDifficulty,
+    beginner,
+    intermediate,
+    advanced,
+    expert,
+  };
 };
