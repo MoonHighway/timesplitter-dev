@@ -8,6 +8,44 @@
       "required": true,
       "agenda": [
         {
+          "title": "slide deck",
+          "difficulty": "beginner",
+          "type": "slides",
+          "required": true,
+          "length": 5,
+          "agenda": []
+        },
+        {
+          "title": "Course Details",
+          "type": "sample",
+          "length": 5,
+          "difficulty": "beginner",
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "Chapter Two",
+      "difficulty": "intermediate",
+      "type": "section",
+      "required": true,
+      "agenda": [
+        {
+          "title": "Learning",
+          "difficulty": "intermediate",
+          "type": "sample",
+          "required": true,
+          "agenda": []
+        },
+        {
+          "title": "writing",
+          "difficulty": "advanced",
+          "type": "sample",
+          "required": false,
+          "length": 6,
+          "agenda": []
+        },
+        {
           "title": "Build Something",
           "difficulty": "expert",
           "type": "exercise",
@@ -43,97 +81,59 @@
               "agenda": []
             }
           ]
-        },
-        {
-          "title": "slide deck",
-          "difficulty": "beginner",
-          "type": "slides",
-          "required": true,
-          "length": 5,
-          "agenda": []
-        },
-        {
-          "title": "Course Details",
-          "type": "sample",
-          "length": 5,
-          "difficulty": "beginner",
-          "required": true
         }
       ]
     },
     {
-      "title": "Chapter Two",
-      "difficulty": "intermediate",
+      "title": "Chapter Three",
+      "difficulty": "advanced",
       "type": "section",
       "required": true,
       "agenda": [
         {
-          "title": "Chapter Three",
-          "difficulty": "advanced",
-          "type": "section",
+          "title": "example",
+          "difficulty": "beginner",
+          "type": "sample",
           "required": true,
+          "agenda": []
+        },
+        {
+          "title": "live code",
+          "difficulty": "advanced",
+          "type": "sample",
+          "required": true,
+          "agenda": []
+        },
+        {
+          "title": "Try it out",
+          "difficulty": "advanced",
+          "type": "lab",
+          "required": false,
           "agenda": [
             {
-              "title": "example",
+              "title": "first step",
+              "difficulty": "advanced",
+              "type": "step",
+              "required": true,
+              "length": 3,
+              "agenda": []
+            },
+            {
+              "title": "second step",
               "difficulty": "beginner",
-              "type": "sample",
+              "type": "step",
               "required": true,
+              "length": 5,
               "agenda": []
             },
             {
-              "title": "live code",
-              "difficulty": "advanced",
-              "type": "sample",
-              "required": true,
-              "agenda": []
-            },
-            {
-              "title": "Try it out",
-              "difficulty": "advanced",
-              "type": "lab",
+              "title": "Third Step",
+              "difficulty": "expert",
+              "type": "step",
               "required": false,
-              "agenda": [
-                {
-                  "title": "first step",
-                  "difficulty": "advanced",
-                  "type": "step",
-                  "required": true,
-                  "length": 3,
-                  "agenda": []
-                },
-                {
-                  "title": "second step",
-                  "difficulty": "beginner",
-                  "type": "step",
-                  "required": true,
-                  "length": 5,
-                  "agenda": []
-                },
-                {
-                  "title": "Third Step",
-                  "difficulty": "expert",
-                  "type": "step",
-                  "required": false,
-                  "agenda": []
-                }
-              ]
+              "agenda": []
             }
           ]
-        },
-        {
-          "title": "Learning",
-          "difficulty": "intermediate",
-          "type": "sample",
-          "required": true,
-          "agenda": []
-        },
-        {
-          "title": "writing",
-          "difficulty": "advanced",
-          "type": "sample",
-          "required": false,
-          "length": 6,
-          "agenda": []
         }
       ]
     }
