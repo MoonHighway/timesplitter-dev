@@ -32,7 +32,7 @@ export default function App() {
     return (
       <>
         <AddForm agenda={data.children} onNewTopic={onAddTopic} />
-        {/* <CourseTitle title={title} topics={children} /> */}
+        <CourseTitle title={title} topics={children} />
         <Menu
           data={data}
           onChange={sortTopics}
