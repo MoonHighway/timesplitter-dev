@@ -5,6 +5,7 @@ import { getTopicPath, urlFriendly } from "../lib";
 import { fonts } from "../theme";
 import styled from "styled-components";
 import debounce from "debounce";
+import ErrorBoundary from "./ErrorBoundary";
 
 const saveMarkdown = debounce((path, content, onChange) => {
   onChange(path, content);
@@ -41,14 +42,16 @@ export default function TopicMarkdown({ content, title, onChange = (f) => f }) {
 
   return (
     <Container>
-      <Tabs activeTabIndex={tabIndex}>
-        <Tab tabName="Presenter Notes" selectTab={setTabIndex}>
-          <textarea value={_md} onChange={updateMarkdown} />
-        </Tab>
-        <Tab tabName="Preview" selectTab={setTabIndex}>
-          Preview
-        </Tab>
-      </Tabs>
+      <ErrorBoundary>
+        <Tabs activeTabIndex={tabIndex}>
+          <Tab tabName="Presenter Notes" selectTab={setTabIndex}>
+            <textarea value={_md} onChange={updateMarkdown} />
+          </Tab>
+          <Tab tabName="Preview" selectTab={setTabIndex}>
+            Preview
+          </Tab>
+        </Tabs>
+      </ErrorBoundary>
     </Container>
   );
 }

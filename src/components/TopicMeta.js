@@ -13,6 +13,7 @@ import { fonts, colors } from "../theme";
 import deepEqual from "deep-equal";
 import styled from "styled-components";
 import debounce from "debounce";
+import ErrorBoundary from "./ErrorBoundary";
 
 const saveTitle = debounce((oldTitle, newTitle, onRename = (f) => f) => {
   if (oldTitle !== newTitle) onRename(oldTitle, newTitle);
@@ -70,56 +71,60 @@ export default function TopicMeta({
 
   return (
     <Container>
-      <Row>
-        <Title
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          onFocus={(e) => e.target.select()}
-        />
-        <button onClick={removeTopic}>[DELETE] Save</button>
-      </Row>
-      <Row>
-        <Row style={{ width: "100%" }}>
-          <TopicTypeSelect selectedValue={type} onChange={setType} />
-          <DifficultyDropDown
-            selectedValue={difficulty}
-            onChange={setDifficulty}
-            size="md"
+      <ErrorBoundary>
+        <Row>
+          <Title
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onFocus={(e) => e.target.select()}
           />
-          <Checkbox
-            checked={required}
-            icon={<Required fill={required ? colors.required : colors.bland} />}
-            checkedLabel="required"
-            uncheckedLabel="not required"
-            checkedColor={colors.required}
-            uncheckedColor={colors.bland}
-            onChange={setRequired}
-          />
-
-          <Row style={{ flexGrow: 1, justifyContent: "flex-start" }}>
-            <TimeInput
-              topicTime={length}
-              agendaTime={totalTime(node)}
-              parentTime={parentTime(content, node.title)}
-              onChange={(length) => setLength(parseInt(length))}
+          <button onClick={removeTopic}>[DELETE] Save</button>
+        </Row>
+        <Row>
+          <Row style={{ width: "100%" }}>
+            <TopicTypeSelect selectedValue={type} onChange={setType} />
+            <DifficultyDropDown
+              selectedValue={difficulty}
+              onChange={setDifficulty}
+              size="md"
             />
-            {length && (
-              <Checkbox
-                checked={locked}
-                icon={
-                  <Lock
-                    locked={locked}
-                    fill={locked ? colors.beginner : colors.bland}
-                  />
-                }
-                checkedLabel="locked"
-                uncheckedLabel="not locked"
-                onChange={setLocked}
+            <Checkbox
+              checked={required}
+              icon={
+                <Required fill={required ? colors.required : colors.bland} />
+              }
+              checkedLabel="required"
+              uncheckedLabel="not required"
+              checkedColor={colors.required}
+              uncheckedColor={colors.bland}
+              onChange={setRequired}
+            />
+
+            <Row style={{ flexGrow: 1, justifyContent: "flex-start" }}>
+              <TimeInput
+                topicTime={length}
+                agendaTime={totalTime(node)}
+                parentTime={parentTime(content, node.title)}
+                onChange={(length) => setLength(parseInt(length))}
               />
-            )}
+              {length && (
+                <Checkbox
+                  checked={locked}
+                  icon={
+                    <Lock
+                      locked={locked}
+                      fill={locked ? colors.beginner : colors.bland}
+                    />
+                  }
+                  checkedLabel="locked"
+                  uncheckedLabel="not locked"
+                  onChange={setLocked}
+                />
+              )}
+            </Row>
           </Row>
         </Row>
-      </Row>
+      </ErrorBoundary>
     </Container>
   );
 }

@@ -13,7 +13,9 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     // You can also log the error to an error reporting service
-    console.log(error, errorInfo);
+    console.log("ERROR BOUNDARY \n\n");
+    console.log(error, "\n\n");
+    console.log(errorInfo, "\n\n");
   }
 
   render() {

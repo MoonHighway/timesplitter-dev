@@ -13,7 +13,7 @@ export const countByType = (
   if (topic.type === "slides") count.slides = count.slides + 1;
   if (topic.type === "lab") count.labs = count.labs + topic.children.length;
   if (topic.type === "exercise")
-    count.exercises = count.exercises + topic.children.length;
+    count.exercises = count.exercises + (topic.children.length || 0);
   if (topic.children) {
     return topic.children.reduce((total, t) => countByType(t, total), count);
   }

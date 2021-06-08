@@ -30,9 +30,9 @@ export default function App() {
   if (data) {
     if (selectedNode) data = data.map(setSelectedBranch(selectedNode.title));
     return (
-      <ErrorBoundary>
+      <>
         <AddForm agenda={data.children} onNewTopic={onAddTopic} />
-        <CourseTitle title={title} topics={children} />
+        {/* <CourseTitle title={title} topics={children} /> */}
         <Menu
           data={data}
           onChange={sortTopics}
@@ -60,7 +60,7 @@ export default function App() {
             <p className="empty-message">Select a Topic from the menu</p>
           )}
         </TopicCard>
-      </ErrorBoundary>
+      </>
     );
   }
   return null;

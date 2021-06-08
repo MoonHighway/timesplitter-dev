@@ -77,6 +77,7 @@ module.exports = function (rootFolder) {
       throw new Error("timesplitter.json must contain an agenda array");
     }
 
+    content = loadContent(rootFolder);
     res.send(content);
   });
 
