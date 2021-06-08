@@ -1,1 +1,0 @@
-Overview the lab, link to lab challenge overview

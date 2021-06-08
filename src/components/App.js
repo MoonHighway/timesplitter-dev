@@ -2,6 +2,7 @@ import { useTreeContent } from "../hooks";
 import AddForm from "./AddForm";
 import CourseTitle from "./CourseTitle";
 import Menu from "./Menu";
+import ErrorBoundary from "./ErrorBoundary";
 import TopicMeta from "./TopicMeta";
 import TopicMarkdown from "./TopicMarkdown";
 import { setSelectedBranch } from "../lib";
@@ -29,7 +30,7 @@ export default function App() {
   if (data) {
     if (selectedNode) data = data.map(setSelectedBranch(selectedNode.title));
     return (
-      <>
+      <ErrorBoundary>
         <AddForm agenda={data.children} onNewTopic={onAddTopic} />
         <CourseTitle title={title} topics={children} />
         <Menu
@@ -59,7 +60,7 @@ export default function App() {
             <p className="empty-message">Select a Topic from the menu</p>
           )}
         </TopicCard>
-      </>
+      </ErrorBoundary>
     );
   }
   return null;

@@ -1,1 +1,0 @@
-Solution for the third lab step.
