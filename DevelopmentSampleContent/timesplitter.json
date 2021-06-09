@@ -35,14 +35,8 @@
           "difficulty": "intermediate",
           "type": "sample",
           "required": true,
-          "agenda": []
-        },
-        {
-          "title": "writing",
-          "difficulty": "advanced",
-          "type": "sample",
-          "required": false,
           "length": 6,
+          "locked": true,
           "agenda": []
         },
         {

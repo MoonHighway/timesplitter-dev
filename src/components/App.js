@@ -53,7 +53,10 @@ export default function App() {
                     title: newName,
                   });
                 }}
-                onChange={updateTopicMeta}
+                onChange={(oldTopic, newTopic) => {
+                  updateTopicMeta(oldTopic, newTopic);
+                  setSelectedNode(newTopic);
+                }}
               />
               <TopicMarkdown
                 title={selectedNode.title}
