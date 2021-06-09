@@ -24,7 +24,7 @@
     "timesplitter-dev": "server/index.js"
   },
   "scripts": {
-    "start:server": "nodemon ./server ./DevelopmentSampleContent",
+    "start:server": "nodemon ./server ./DevelopmentSampleContent --ignore '*.json'",
     "start:client": "react-scripts start",
     "start": "export NODE_ENV=development; concurrently \"npm run start:server\" \"npm run start:client\"",
     "build": "react-scripts build",

@@ -55,7 +55,7 @@ export default function TopicMeta({
 
   useEffect(() => {
     if (!title) return;
-    if (node.title !== title) saveTitle(node.title, title, onRename);
+    saveTitle(node.title, title, onRename);
   }, [title]);
 
   const removeTopic = () => {
