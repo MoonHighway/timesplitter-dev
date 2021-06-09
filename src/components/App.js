@@ -2,7 +2,6 @@ import { useTreeContent } from "../hooks";
 import AddForm from "./AddForm";
 import CourseTitle from "./CourseTitle";
 import Menu from "./Menu";
-import ErrorBoundary from "./ErrorBoundary";
 import TopicMeta from "./TopicMeta";
 import TopicMarkdown from "./TopicMarkdown";
 import { setSelectedBranch } from "../lib";
@@ -47,7 +46,13 @@ export default function App() {
                 content={{ title, agenda: data }}
                 node={selectedNode}
                 onRemove={removeTopic}
-                onRename={renameTopic}
+                onRename={(oldName, newName) => {
+                  renameTopic(oldName, newName);
+                  setSelectedNode({
+                    ...selectedNode,
+                    title: newName,
+                  });
+                }}
                 onChange={updateTopicMeta}
               />
               <TopicMarkdown
