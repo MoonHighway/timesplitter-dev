@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Tabs, Tab } from "react-tabs-adaptive";
 import { useContentFile } from "../hooks";
 import { getTopicPath, urlFriendly } from "../lib";
 import { fonts } from "../theme";
@@ -12,7 +11,6 @@ const saveMarkdown = debounce((path, content, onChange) => {
 }, 1000);
 
 export default function TopicMarkdown({ content, title, onChange = (f) => f }) {
-  const [tabIndex, setTabIndex] = useState(0);
   const [path, setPath] = useState(
     getTopicPath(content, title).replace(urlFriendly(content.title), "agenda")
   );
@@ -43,14 +41,7 @@ export default function TopicMarkdown({ content, title, onChange = (f) => f }) {
   return (
     <Container>
       <ErrorBoundary>
-        <Tabs activeTabIndex={tabIndex}>
-          <Tab tabName="Presenter Notes" selectTab={setTabIndex}>
-            <textarea value={_md} onChange={updateMarkdown} />
-          </Tab>
-          <Tab tabName="Preview" selectTab={setTabIndex}>
-            Preview
-          </Tab>
-        </Tabs>
+        <textarea value={_md} onChange={updateMarkdown} />
       </ErrorBoundary>
     </Container>
   );
