@@ -6,15 +6,15 @@ import {
 } from ".";
 const testData = require("./countTopics.test.json");
 
-it("countByType(topic)", () => {
-  let result = countByType(testData);
-  expect(result).toEqual({
-    slides: 2,
-    samples: 3,
-    labs: 4,
-    exercises: 5,
-  });
-});
+// it("countByType(topic)", () => {
+//   let result = countByType(testData);
+//   expect(result).toEqual({
+//     slides: 2,
+//     samples: 3,
+//     labs: 4,
+//     exercises: 5,
+//   });
+// });
 
 it("countByTime(topic)", () => {
   let result = countByTime(testData);
