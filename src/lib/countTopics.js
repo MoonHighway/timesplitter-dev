@@ -9,6 +9,8 @@ export const countByType = (
     exercises: 0,
   }
 ) => {
+  console.log(topic.title, "  -   ", topic.type, count);
+
   if (topic.type === "sample") count.samples = count.samples + 1;
   if (topic.type === "slides") count.slides = count.slides + 1;
   if (topic.type === "lab" && topic.children)
@@ -20,6 +22,7 @@ export const countByType = (
   if (topic.children) {
     return topic.children.reduce((total, t) => countByType(t, total), count);
   }
+
   return count;
 };
 
